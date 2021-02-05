@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//TITAN//DTD QUERYSERVICE//EN"
+	"http://www.sds.samsung.co.kr/anyframe/anyframe_core_query_mapping.dtd">
+
+
+
+<!-- ======================================================
+ * 論　　理　　名：User Info
+ * オブジェクト名： TECH3G_USER_INFO
+ * 適　　　　　用：
+===========================================================-->
+<queryservice>
+
+	<queries>
+		<!-- ***** システム監視情報を登録する。 ***** -->
+		<query id="co.doc.searchUserInfo"  isDynamic="false">
+			<statement><![CDATA[
+
+				select
+						user_id
+					,	user_name
+					,	user_pass
+					,	user_mail
+					,	user_admin
+					,	user_tel_no
+					,	user_del_flg
+					,	user_ip hndg_ip
+					,	date_format(regi_date, '%Y-%m-%d %T')  regi_date
+					,	regi_user
+					,	date_format(upt_date, '%Y-%m-%d %T') upt_date
+					,	upt_user
+				from
+					tech3g_db.tech3g_user_info
+				where
+					user_id = ?
+			]]></statement>
+            <param type="VARCHAR" />
+		</query>
+
+	</queries>
+</queryservice>

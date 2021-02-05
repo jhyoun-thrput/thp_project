@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:config="http://www.sds.samsung.com/schema/service"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!--
+		[PROPAGATION]
+		REQUIRED        : 既にTransactionが存在する場合、該当Transactionに参加
+						  Transactionがない場合、新しいTransactionを作成し実行
+		SUPPORTS        : 既にTransactionが存在する場合、該当Transactionに参加
+						  Transactionがない場合、 そのまま実行
+		MANDATORY　   　: 既にTransactionが存在する場合、該当Transactionに参加
+						  Transactionがない場合、 Exception 発生
+		REQUIRES_NEW    : 既にTransactionが存在する場合、該当Transactionをsuspendさせて新しいTransactionを作成
+		                  Transactionがない場合 新しいTransactionを作成
+		NOT_SUPPORTED   : 既にTransactionが存在する場合、 該当TransactionをsuspendさせてTransactionなしで実行
+                          Transactionがない場合、 そのまま実行
+        NEVER           : 既にTransactionが存在する場合、Exception 発生
+						  Transactionがない場合、Transactionなしで実行
+		NESTED		    : 既にTransactionが存在する場合、 該当Transactionに参加
+						  Transactionがない場合、 nested Transaction 実行 [ISOLATION]
+		DEFAULT		    : datastoreに依存
+		READ_UNCOMMITTED: Dirty reads, Non-repeatable reads,
+		                  Phantom reads 発生
+		READ_COMMITTED  : Dirty reads 防止, Non-repeatable reads,
+		                  Phantom reads 発生
+		REPEATABLE_READ : Non-repeatable Read 防止,
+						  Phantom reads 防止
+		SERIALIZABLE    : Phantom Read 防止
+	-->
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceSpy" />
+	</bean>
+
+	<!--
+	<bean id="txManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManagerName"
+		value="java:/TransactionManager" /> <property name="jndiTemplate"
+		ref="jndiJeusTemplate"></property> <property
+		name="allowCustomIsolationLevels" value="true"/> </bean>
+	 -->
+
+	<!-- service -->
+	<!--
+	<tx:advice id="serviceTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*"
+				rollback-for="java.lang.Exception"
+				propagation="REQUIRED" timeout="600" />
+		</tx:attributes>
+	</tx:advice>
+
+	 -->
+
+		<tx:advice id="serviceTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*"
+				rollback-for="java.lang.Exception"
+				propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- tx advice -->
+	<aop:config>
+		<aop:advisor advice-ref="serviceTxAdvice" pointcut-ref="serviceMethod" />
+	</aop:config>
+
+</beans>

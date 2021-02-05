@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:config="http://www.sds.samsung.com/schema/service"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://www.sds.samsung.com/schema/service http://www.sds.samsung.com/schema/service/anyframe-service-2.0.xsd"
+	>
+
+    <!-- The original JdbcTemplate definition -->
+	<bean id="jdbcTemplate"
+		class="anyframe.core.query.impl.util.PagingJdbcTemplate">
+		<property name="dataSource" ref="dataSourceSpy" />
+	</bean>
+
+	<!-- NativeJdbcExtractor -->
+	<bean
+		id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor"
+		lazy-init="true"/>
+
+	<!-- LobHandler for Oracle JDBC drivers -->
+	<bean
+		id="lobHandler"
+		class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
+	</bean>
+
+	<!-- SQL Loader -->
+	<bean name="sqlLoader" class="anyframe.core.query.impl.SQLLoader">
+		<property name="skipError" value="false"/>
+		<config:configuration>
+	        <filename>classpath*:queries/**/*.xml</filename>
+	   	    <nullcheck type="VARCHAR" default-value=""/>
+		</config:configuration>
+	</bean>
+
+	<!-- Extended Query Serivce -->
+	<bean name="queryService" class="anyframe.core.query.impl.ExtendedQueryServiceImpl">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate"/>
+		</property>
+		<property name="lobHandler">
+			<ref bean="lobHandler"/>
+		</property>
+		<property name="sqlRepository">
+			<ref bean="sqlLoader"/>
+		</property>
+	</bean>
+</beans>

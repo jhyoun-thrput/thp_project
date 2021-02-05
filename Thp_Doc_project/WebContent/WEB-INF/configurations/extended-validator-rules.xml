@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
+
+<form-validation>
+
+   <global>
+
+<!-- 文字タイプ関連===============================================================Start  -->
+
+      <!-- ***半角のみ指定可能 *** -->
+	  <validator name="han"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateHankaku"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO015">
+      </validator>
+
+      <!-- ***数字のみ指定可能 *** -->
+	  <validator name="han_suji"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateNumber"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO016">
+      </validator>
+
+      <!-- ***アルファベットのみ指定可能 *** -->
+	  <validator name="han_eiji"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateAlphabet"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO017">
+      </validator>
+
+      <!-- ***数値および、アルファベットのみ指定可能 *** -->
+	  <validator name="han_eisu"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateNumberAlphabet"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO018">
+      </validator>
+
+      <!-- ***数値および、大文字のアルファベットのみ指定可能 *** -->
+	  <validator name="nupper"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateNumberUpper"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO030">
+      </validator>
+
+      <!-- ***数値および、小文字のアルファベットのみ指定可能 *** -->
+	  <validator name="nlower"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateNumberLower"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO031">
+      </validator>
+
+      <!-- ***半角カナのみを指定可能 *** -->
+      <validator name="han_kana"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateHankakuKanaSpace"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO019">
+      </validator>
+
+      <!-- ***半角カナを除く半角のみを指定可能 *** -->
+      <validator name="ascii"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateAscii"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO015">
+      </validator>
+
+      <!-- *** 大文字のアルファベットのみ指定可能 *** -->
+	  <validator name="upper"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateUpperCharacters"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO028">
+      </validator>
+
+      <!-- ***小文字のアルファベットのみ指定可能 *** -->
+	  <validator name="lower"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateLowerCharacters"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO029">
+      </validator>
+
+      <!-- ***全角のみ可能 *** -->
+	  <validator name="zen"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenkaku"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO020">
+      </validator>
+
+      <!-- ***全角数字のみ可能 *** -->
+	  <validator name="zen_suji"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenNumber"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO021">
+      </validator>
+
+      <!-- ***全角英字のみ可能 *** -->
+	  <validator name="zen_eiji"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenAlphabet"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO023">
+      </validator>
+
+      <!-- ***全角英数のみ可能 *** -->
+	  <validator name="zen_eisu"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenNumAlphabet"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO022">
+      </validator>
+
+      <!-- ***全角カナのみ可能 *** -->
+	  <validator name="zen_kana"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenKana"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO024">
+      </validator>
+
+      <!-- ***全角ひらがなのみ可能 *** -->
+	  <validator name="zen_hira"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateZenHira"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO025">
+      </validator>
+
+
+<!-- 数値関連===============================================================Start  -->
+
+      <!-- ***DECIMALタイプ数字のみ可能 （カンマ区切り、符号、小数点含む）*** -->
+	  <validator name="decimal"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateDecimal"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO026">
+      </validator>
+
+      <!-- ***DECIMALのフォーマットチェック *** -->
+	  <validator name="decimalFormat"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateDecimalFormat"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO064">
+      </validator>
+
+      <!-- ***正の数値のみ有効 *** -->
+	  <validator name="positive"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validatePositive"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO068">
+      </validator>
+
+      <!-- ***1以下の小数のみ可能 *** -->
+	  <validator name="percent"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validatePercent"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO069">
+      </validator>
+
+      <!-- *** 小数点の桁数が指定された桁数以上であることを調べる *** -->
+	  <validator name="minscale"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMinScale"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.minscale">
+      </validator>
+
+      <!-- *** 小数点の桁数が指定された桁数以下であることを調べる *** -->
+	  <validator name="maxscale"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMaxScale"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxscale">
+      </validator>
+
+
+<!-- 日付関連===============================================================Start  -->
+
+      <!-- ***西暦YYYYMMDDのチェック *** -->
+	  <validator name="yyyymmdd"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateYYYYMMDD"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO046">
+      </validator>
+
+      <!-- ***西暦YYYYMMのチェック *** -->
+	  <validator name="yyyymm"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateYYYYMM"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO047">
+      </validator>
+
+      <!-- ***西暦YYYYのチェック *** -->
+	  <validator name="yyyy"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateYYYY"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO048">
+      </validator>
+
+      <!-- ***和暦YYYYMMDDのチェック *** -->
+	  <validator name="jyy_mm_dd"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateJYYMMDD"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO049">
+      </validator>
+
+      <!-- ***和暦YYYYMMのチェック *** -->
+	  <validator name="jyy_mm"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateJYYMM"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO050">
+      </validator>
+
+      <!-- ***和暦YYYYのチェック *** -->
+	  <validator name="jyy"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateJYY"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="err.CO051">
+      </validator>
+
+
+<!-- 桁数関連===============================================================End  -->
+
+      <!-- *** 最大桁数チェック *** -->
+	  <validator name="maxlength"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMaxLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxlength">
+      </validator>
+
+      <!-- ***指定されたByte数のみを許す *** -->
+	  <validator name="full"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateSpecifiedLength"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.full">
+      </validator>
+
+      <!-- *** バイト数が指定された値以上であることを調べる *** -->
+	  <validator name="minbytes"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMinBytes"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.minbytes">
+      </validator>
+
+      <!-- ***バイト数が指定された値以下であることを調べる *** -->
+	  <validator name="maxbytes"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMaxBytes"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.maxbytes">
+      </validator>
+
+
+<!-- その他===============================================================End  -->
+
+      <!-- *** 必須チェック *** -->
+	  <validator name="required"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateRequired"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.required">
+      </validator>
+
+      <!-- *** マスク *** -->
+	  <validator name="mask"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateMask"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.mask">
+      </validator>
+
+      <!-- ***"1","0"のみ指定可能 *** -->
+	  <validator name="flag"
+            classname="tech3g.common.web.validation.ExtValidationChk"
+               method="validateFlagType"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       org.apache.commons.validator.Validator,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.flag">
+      </validator>
+
+
+
+   </global>
+
+</form-validation>

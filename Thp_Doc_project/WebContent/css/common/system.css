@@ -1,0 +1,404 @@
+﻿/********************************************************************/
+/*										*/
+/*  SamsnugSDS TSG Design Part ( Lee Eun Ah )   */
+/*  Date : 2004-08-16- 오후 3시 - 인풋박스 red추가
+/*      								*/
+/********************************************************************/
+/* 모든 업무화면에 공통으로 사용될 Templet CSS 입니다 추가가 생기면 계속 추가해서 보내드리겠습니다.*/
+
+/***************************BODY*********************************/
+
+/* 이미지 보더라인 삭제 */
+IMG {  border-style: none}
+
+/* 전체 가로스크롤 삭제, 스크롤 색상적용 */
+BODY {
+scrollbar-3dlight-color: #ffffff;
+scrollbar-highlight-color: #ffffff;
+scrollbar-face-color: #DEE7EB;
+scrollbar-arrow-color: #6F9BAA;
+scrollbar-track-color: #F7F7F7;
+scrollbar-darkshadow-color: #ffffff;
+scrollbar-shadow-color: #B8C4C5;}
+
+/* 가로스크롤 삭제 및 탑마진 삭제*/
+body{
+overflow-x:hidden; margin-top:0px;
+}
+
+/* 링크 속성 */
+A.:link {  color: #333333 ; text-decoration: none; cursor:hand}
+A.:visited {  color: #333333 ;  text-decoration: none;}
+A.:hover {  color: #347BD9 ;text-decoration: none; }
+A.:active {  color: #347BD9 ; text-decoration: none;}
+
+
+/* 전체 텍스트 속성 */
+BODY, TABLE, TR, TD, SELECT,INPUT,DIV,SPAN,FORM,TEXTAREA
+{ font-family: "MS Gothic"; font-size: 12px; color: #333333;}
+
+/* 리스트 토탈 텍스트 속성 */
+.Total_txt {
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.point_txt {
+	font-size: 12px;
+	font-weight: bold;
+	color:#FF3300;
+	text-align: center;
+	}
+	
+	.error_txt {
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	color: #CC0000;
+	}
+
+/***************************공지사항***************************************/
+/* 공지사항 테이블 */
+.notice_table{	border: 1px  solid #FFFFFF;	background-color: DCDBDB;	TABLE-layout:fixed; }
+
+/* 공지사항 컨텐츠 좌측정렬 */
+.notice_left {		line-height: 21px;	text-indent: 12pt;	background-color: #EEF2F3; text-overflow : ellipsis; overflow :hidden;}
+.notice_left_w {		line-height: 21px;	text-indent: 12pt;	background-color: #ffffff; text-overflow : ellipsis; overflow :hidden;}
+
+
+	/* TD안에 왼쪽라인 생기고 텍스트 중앙정렬 */
+.notice_center {	line-height: 21px;	background-color: #EEF2F3;	text-align: center;
+	background-image: url(../image/common/imgNotice_line.gif);	background-repeat: repeat-x;	background-position: left bottom; text-overflow : ellipsis; overflow :hidden;}
+	
+.notice_center_w {	line-height: 21px;	background-color: #ffffff;	text-align: center;
+	background-image: url(../image/common/imgNotice_line_w.gif);	background-repeat: repeat-x;	background-position: left bottom; text-overflow : ellipsis; overflow :hidden;}
+
+/***************************이미지 타이틀 ***************************************/
+
+/* 타이틀1 배경이미지와 텍스트 속성 */
+.tit {
+	font-size: 15px;
+	line-height: 32px;
+	color: #4578B6;
+	background-image:   url(../image/common/img_tit.gif);
+	font-weight: bold;
+	text-indent: 33pt;
+}
+
+/* 타이틀2 배경이미지와 텍스트 속성 */
+.tit2 {
+	font-size: 12px;
+	line-height: 20px;
+	color: #926B3D;
+	background-image:   url(../image/common/img_tit2.gif);
+	font-weight: bold;
+	text-indent: 15pt;
+	valign="bottom" 
+
+}
+
+
+/****************************서치****************************************/
+
+/* 서치 테이블 */
+.search_table{ border: 1px solid #FFFFFF; background-color: #e4cc83; font-size: 12px; }
+
+/* 서치 타이틀 좌측정렬 */
+.search_tit_left {
+	font-family: "";
+	font-size: 12px;
+	color: #333333;
+	text-indent: 4pt;
+	background-color: #FDF4E3;
+	font-family: "";
+	font-size: 12px;
+	line-height: 21px;
+	color: #333333;
+	background-color: #FDF4E3;
+}
+
+/* 서치 타이틀 중앙정렬 */
+.search_tit_center {
+	font-family: "";
+	font-size: 12px;
+	line-height: 21px;
+	color: #333333;
+	background-color: #FDF4E3;
+	text-align: center;
+	
+}
+
+/* 서치 타이틀우측정렬 */
+.search_tit_right {	font-family: "";	font-size: 12px;	line-height: 21px;	color: #333333;	background-color: #FDF4E3;	text-align: right;	padding-right:4px}
+
+
+/***************************컨텐츠 테이블 & 타이틀***************************************/
+/* 컨텐츠 테이블  정의 및 길이 고정*/
+.con_table{
+	border: 1px  solid #FFFFFF;
+	background-color: #6291b3;
+}
+
+.con_table_fix{
+	border: 1px  solid #FFFFFF;
+	background-color: #6291b3;
+	TABLE-layout:fixed;
+	}
+
+/* 컨텐츠 타이틀 좌측정렬 */
+.con_tit_left {		line-height: 21px;	text-indent: 4pt;	background-color: #DEEFF8;}
+
+/* 컨텐츠 타이틀 중앙정렬 */
+.con_tit_center {	line-height: 21px;	background-color: #DEEFF8;	text-align: center;}
+
+/* 컨텐츠 타이틀 우측정렬 */
+.con_tit_left {		line-height: 21px;	padding-right: 4pt; 	background-color: #DEEFF8;}
+
+/***************************컨텐츠 TD ***************************************/
+/* 컨텐츠 좌측정렬 */
+.con_left {	text-align: left;		font-size: 12px;	line-height: 21px;	color: #333333;	text-indent: 4pt;	background-color: #FFFFFF; text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+
+/* 컨텐츠 우측정렬 */
+.con_right {	font-size: 12px;	line-height: 21px;	color: #333333;	background-color: #FFFFFF;	text-align: right;	padding-right: 4px; text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+
+/* 컨텐츠 중앙정렬 */
+.con_center {	font-size: 12px;	line-height: 21px;	color: #333333;	text-align: center;	background-color: #FFFFFF; text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+
+
+/*************************** TD안에 왼쪽 1px 라인 만들기 ***************************************/
+/* TD안에 컨텐츠 타이틀  왼쪽라인 생기고 텍스트 중앙정렬 */
+.con_line_tit_center {	background-color: #DEEFF8;	text-align: center;	border-top-width: thin;
+	border-right-width: thin;	border-bottom-width: thin;	border-left-width: 1px;	border-top-style: none;
+	border-right-style: none;	border-bottom-style: none;	border-left-style: solid;	border-left-color: #6291b3; }
+
+.con_line_Titleright {	line-height: 21px;	text-align: right;	background-color: DEEFF8;
+	border-top-width: thin;	border-right-width: 1px;	border-bottom-width: thin;	border-left-width: thin;	border-top-style: none;
+	border-right-style: solid;	border-bottom-style: none;	border-left-style: none;	border-right-color: #6291b3;}
+
+.con_line_blue_center {	font-size: 12px;	color: #333333;	background-color: #DEEFF8;	text-align: center;}
+
+/* TD안에 왼쪽라인 생기고 텍스트 좌측정렬 */
+.con_line_left {	line-height: 21px;	text-indent: 4pt;	background-color: #FFFFFF;	border-top-width: thin;
+	border-right-width: thin;	border-bottom-width: thin;	border-left-width: 1px;	border-top-style: none;
+	border-right-style: none;	border-bottom-style: none;	border-left-style: solid;	border-left-color: #6291b3; text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+	
+	/* TD안에 왼쪽라인 생기고 텍스트 중앙정렬 */
+.con_line_center {	line-height: 21px; text-align:center; 	background-color: #FFFFFF;	border-top-width: thin;
+	border-right-width: thin;	border-bottom-width: thin;	border-left-width: 1px;	border-top-style: none;
+	border-right-style: none;	border-bottom-style: none;	border-left-style: solid;	border-left-color: #6291b3; text-overflow : ellipsis; overflow :hidden;white-space: nowrap;}
+
+/* TD안에 오른쪽라인 생기고 텍스트 중앙정렬 */
+.con_line_right { 	line-height: 21px;		text-align: right;	background-color: DEEFF8;
+	border-top-width: thin;	border-right-width: 1px;	border-bottom-width: thin;	border-left-width: thin;
+	border-top-style: none;	border-right-style: solid;	border-bottom-style: none;	border-left-style: none;	
+	border-right-color: #6291b3; text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+
+.con_line_bottom_center {	font-size: 12px;	line-height: 21px;	color: #333333;	text-align: center;	background-color: DEEFF8;
+	border-top-width: thin;	border-right-width: thin;	border-bottom-width: 1px;	border-left-width:thin;	border-top-style: none;
+	border-right-style: none;	border-bottom-style: solid;	border-left-style: none;	border-bottom-color: #6291b3; 
+	text-overflow : ellipsis; overflow :hidden;white-space: nowrap;}
+
+.con_line_bottom_left {line-height: 21px;	text-align:left;	background-color: ffffff;
+	border-top-width: thin;	border-right-width: thin;	border-bottom-width: 1px;	border-left-width:1px;	border-top-style: none;
+	border-right-style: none;	border-bottom-style: solid;	border-left-style: solid;	border-bottom-color: #6291b3;	border-left-color: #6291b3;
+	text-overflow : ellipsis; overflow :hidden;white-space: nowrap;}
+
+/* TD안에 진한파란색 1px 라인 */
+.con_line_bottom {	background-color: #6291b3; line-height:1px;}
+
+
+/***************************컨텐츠 테이블 다른포인트색상(복지화면)***************************************/
+/* 컨텐츠 다른색상 중앙정렬 */
+.con_another_center {	background-color: #EAF4DB;	line-height: 21px;	color: #333333;	text-align: center; }
+
+/* 컨텐츠 다른색상 좌측정렬 */
+.con_another_left {	background-color: #EAF4DB;	line-height: 21px;	color: #333333;	text-indent: 4pt; text-align:left; }
+
+/* 컨텐츠 다른색상 우측정렬 */
+.con_another_right {	background-color: #EAF4DB;	line-height: 21px;	color: #333333;	text-align: right;	padding-right: 4px;}
+
+/* 컨텐츠 청록색상 중앙정렬 */
+.con_cyan_center {	background-color: #DBF4F1;	line-height: 21px;	color: #333333;	text-align: center;}
+
+/* 컨텐츠청록색상 좌측정렬 */
+.con_cyan_left {	background-color: #DBF4F1;	line-height: 21px;	color: #333333;	text-indent: 4pt; text-align:left;}
+
+/* 컨텐츠청록색상 우측정렬 */
+.con_cyan_right{	background-color: #DBF4F1;	line-height: 21px;	color: #333333;	text-align: right;	padding-right: 4px;}
+
+/* 컨텐츠 주황색상 중앙정렬 */
+.con_orange_center {	background-color: #FFF6EA;	line-height: 21px;	color: #333333;	text-align: center;}
+
+/* 컨텐츠주황색상 좌측정렬 */
+.con_orange_left {	background-color: #FFF6EA;	line-height: 21px;	color: #333333;	text-indent: 4pt; text-align:left; }
+
+/* 컨텐츠 주황색상 우측정렬 */
+.con_orange_right{	background-color: #FFF6EA;	line-height: 21px;	color: #333333;	text-align: right;	padding-right: 4px;}
+
+/* 컨텐츠 블루색상 중앙정렬 */
+.con_blue_center {	font-family: "";	font-size: 12px;	line-height: 21px;	color: #333333;	background-color: #DEEFF8;	text-align: center; }
+
+/* 컨텐츠 블루색상 좌측정렬 */
+.con_blue_left {	line-height: 21px;	color: #333333;	background-color: #DEEFF8;	text-indent: 4pt; text-align:left; }
+
+/* 컨텐츠 블루색상  우측정렬 */
+.con_blue_right {
+	background-color: #DEEFF8;	line-height: 21px;	color: #333333;	text-align: right;	padding-right: 4px;}
+	
+	
+/***************************리스트 테이블***************************************/
+/* 리스트테이블*/
+.Listcolor {	background-color: F2F5F6;}
+
+.Listcolor_foot {	background-color: 9EC3DE;	border: 1px solid #FFFFFF;	}
+
+.Listcolor_foot_fix{	background-color: 9EC3DE;	border: 1px solid #FFFFFF;	TABLE-layout:fixed;}
+
+/* 리스트 제목 테이블 중앙정렬 */
+.Listtit_center {	line-height: 21px;	text-align: center;	background-color: BDDCEC; }
+
+/* 리스트 제목 테이블 좌측정렬 */
+.Listtit_left {	font-size: 12px;	line-height: 21px;	color: 000033;	text-align: left;	text-indent: 4pt; }
+
+/* 리스트 제목 테이블 우측정렬 */
+.Listtit_right {	font-size: 12px;	line-height: 21px;	color:000033;	text-align: right; padding-right:4px;}
+
+/* 리스트  좌측정렬 */
+.Listleft {	font-size: 12px;	line-height: 18px;	color: #333333;	font-weight: normal;	text-align: left;	text-indent: 4pt; text-overflow : ellipsis; overflow :hidden;white-space: nowrap;}
+
+/* 리스트 중앙정렬 */
+.Listcenter{	font-size: 12px;	line-height: 18px;	color: #333333;	font-weight: normal;	text-align: center; text-overflow : ellipsis; overflow :hidden;white-space: nowrap;}
+
+/* 리스트 우측정렬 */
+.Listright{	font-size: 12px;	line-height: 18px;	color: #333333;	font-weight: normal;	text-align: right;	padding-right:4px text-overflow : ellipsis; overflow :hidden; white-space: nowrap;}
+
+/*테이블 페이징처리(리스트아래 10개가 기본)*/
+.ListPaging {background-color: #709AB9;	text-align: center;	line-height: 23px; }
+
+/* 리스트 타이틀 테이블 중앙정렬 */
+.list_tit_center {	line-height: 21px;	font-weight: bold;	text-align: center;	background-color: #DEEFF8;
+	background-image: url(../image/common/img_tabtitlebg.gif);	background-repeat: repeat-y;	background-position: right;}
+
+/* 리스트 타이틀 테이블 좌측정렬 */
+.list_tit_left {	f	line-height: 29px;	font-weight: bold;	text-align: left;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: right;}
+
+/* 리스트 타이틀 테이블 우측정렬 */
+.list_tit_right {	line-height: 29px;	font-weight: bold;	text-align: right;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: right;}
+
+/* 리스트 타이틀 테이블 마지막 중앙정렬 */
+.list_tit_center_end{	line-height: 29px;	font-weight: bold;	text-align: center;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: left;}
+	
+/* 리스트 타이틀 테이블 마지막 중앙정렬 */
+.list_tit_center_end{	line-height: 29px;	font-weight: bold;	text-align: center;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: left;}
+	
+/* 리스트 타이틀 테이블 마지막 좌측정렬 */
+.list_tit_left_end{	line-height: 29px;	color: #333333;	font-weight: bold;	text-align: left;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: left;	text-indent: 4pt;}
+
+/* 리스트 타이틀 테이블 마지막 우측정렬 */
+.list_tit_right_end{	line-height: 29px;	font-weight: bold;	text-align: right;	background-color: #DEEFF8;
+	background-image:  url(../image/common/img_tabtitlebg.gif);	background-repeat:repeat-y;	background-position: left;}
+
+/* 리스트  좌측정렬 */
+.list_left {	line-height: 21px;	font-weight: normal;	text-align: left;	background-color: #ffffff;
+	background-image:  url(../image/common/img_jumbg1.gif);	background-repeat:repeat-y;	background-position: right;	text-indent: 4pt;}
+
+/* 리스트 중앙정렬 */
+.list_center{		line-height: 21px;	text-align: center;	background-color: #ffffff;	background-image:  url(../image/common/img_jumbg1.gif);
+	background-repeat:repeat-y;	background-position: right;}
+
+/* 리스트 우측정렬 */
+.list_right{	text-align: right;	background-color: #ffffff;	background-image:  url(../image/common/img_jumbg1.gif);
+	background-repeat:repeat-y;	background-position: right;	padding-right: 4px;}
+
+/* 리스트  마지막처리부분 좌측정렬 */
+.list_left_end {	line-height: 21px;	text-indent: 4pt;	background-color: #ffffff;	background-image:  url(../image/common/img_jumbg1.gif);
+	background-repeat:repeat-y;	background-position: left;	text-align: left;}
+
+/* 리스트  마지막처리부분 중앙정렬 */
+.list_center_end {line-height: 21px;	text-align: center;	background-color: #ffffff;	background-image:  url(../image/common/img_jumbg1.gif);
+	background-repeat:repeat-y;	background-position: left;}
+
+/* 리스트  마지막처리부분 우측정렬 */
+.list_right_end {	line-height: 21px;	text-align: right;	background-color: #ffffff;	background-image:  url(../image/common/img_jumbg1.gif);
+	background-repeat:repeat-y;	background-position: left;}
+
+/*테이블 페이징처리(리스트아래 10개를 보여줌)*/
+.paging {	text-align: center;	background-image:  url(../image/common/img_paging.gif);	line-height: 23px;}
+
+	
+/*************************** 등록버튼 구분선 ***************************************/
+	/*등록버튼 구분선*/
+.btn_line {	background-image:  url(../image/common/img_line.gif);	line-height: 15px;}
+
+
+/***************************버튼(버튼을 감싼 테이블 CSS) CSS 가이드 참조!***************************************/
+/* 버튼 감싼 테이블 상하좌우 여백 3px */
+.button_sell {	padding: 3px;	background-color: #ffffff;}
+
+
+/*************************** 인풋박스 & 셀렉트박스 ***************************************/
+/* 인풋박스 */
+.inputbox { background-color: #FFFFFF; margin-left:3px; } 
+
+/* 인풋박스 숫자의 경우 우측정렬 */
+.inputbox_right { font-family: ""; font-size: 12px; text-align: right; background-color: #FFFFFF; text-indent:3px;}
+
+/* 투명하여 보이지않는 인풋박스 */
+.inputbox_white {margin-left:3px;	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;
+	border-left-style: none;	color: #333333;	height: 16px;	margin-top:3px;} 
+.inputbox_whitecenter {	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;
+	border-bottom-style: none;	border-left-style: none;	color: #333333;	text-align: center;	height: 16px;	margin-top:3px;	} 
+.inputbox_whiteright {	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;
+	border-left-style: none;	color: #333333;	text-align: right; height: 16px;	margin-top:3px;} 
+	
+	/* 투명하여 보이지않는 인풋박스 -높이 수정한거*/
+.inputbox_whitemiddle {margin-left:3px;	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;
+	border-bottom-style: none;	border-left-style: none;	color: #333333; 	vertical-align: 15%;;} 
+.inputbox_whitecentermiddle {	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;
+	border-bottom-style: none;	border-left-style: none;	color: #333333;	text-align: center;		vertical-align: 15%;} 
+.inputbox_whiterightmiddle{	background-color: #FFFFFF;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;
+	border-left-style: none;	color: #333333;	text-align: right;	vertical-align: 15%;} 
+
+/* 테두리 투명하고 색깔있는 인풋박스 */
+.inputbox_yellow {margin-left:3px;	background-color: #FDF4E3;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;
+	border-left-style: none;	color: #333333 ;	vertical-align: 15%;} 
+
+.inputbox_yellowcenter {
+	background-color: #FDF4E3;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;
+	border-left-style: none;	color: #333333;	text-align: center; 	vertical-align: 15%;} 
+
+.inputbox_yellowright {	background-color: #FDF4E3;	border-top-style: none;	border-right-style: none;
+	border-bottom-style: none;	border-left-style: none;	color: #333333;	text-align: right; 	vertical-align: 15%;} 
+	
+/* 색상이 들어간 칼라인풋박스(yellow) */
+.inputbox_color { font-family: ""; font-size: 12px; margin-left:3px; background-color: FDF4E3;}
+.inputbox_colorcenter { font-family: ""; font-size: 12px; text-indent: 3px; background-color: FDF4E3; 	text-align:center;}
+.inputbox_colorright{ font-family: ""; font-size: 12px;  background-color: FDF4E3;	text-align: right;}
+
+/* 색상이 들어간 칼라인풋박스(red) */
+.inputbox_redcolor { font-family: ""; font-size: 12px; margin-left:3px; background-color: FED7D6;}
+.inputbox_redcolorcenter { font-family: ""; font-size: 12px; text-indent: 3px; background-color: FED7D6; 	text-align:center;}
+.inputbox_redcolorright{ font-family: ""; font-size: 12px;  background-color: FED7D6;	text-align: right;}
+
+
+/* 입력불가 회색인풋박스 */
+.inputbox_gray { font-family: ""; font-size: 12px; margin-left:3px; background-color: E1E1E1;}
+.inputbox_graycenter {	font-family: "";	font-size: 12px;	background-color: E1E1E1;	text-align: center;}
+.inputbox_grayright {	font-family: "";	font-size: 12px;	background-color: E1E1E1;	text-align: right; }
+
+/* 셀렉트박스 속성*/
+/* 2005-08-25, 삼성SDS/유갑식: 주기업무파트의 조회화면에서 외자 관련 오류 수정 건
+ *             1) 오류현상: Unicode 외자영역의 1880자 이후의 외자가 보이지 않는 문제가 일부 클라이언트에서만 발생됨
+ *                          이것은 font를 명시적으로 지정하지 않아 발생된 것으로 Unicode데이터가 SJIS로 변경되면서 발생된 현상임
+ *             2) 조치방법: `font-family`에 'MS PGothic'를 명시적으로 설정하여 처리함
+ */
+.selectbox { font-family: 'MS PGothic'; padding: 3px; line-height: 18px; color: #333333; background-color: #FFFFFF; text-indent: 3pt; }
+.selectbox_yellow { font-family: 'MS PGothic'; padding: 3px; line-height: 18px; color: #333333; background-color: #FDF4E3; text-indent: 3pt; }
+.selectbox_gray { font-family: 'MS PGothic'; padding: 3px; line-height: 18px; color: #333333; background-color: #E1E1E1; text-indent: 3pt; }
+.dot {	line-height: 1px;	background-image: url(../image/common/dot.gif);}

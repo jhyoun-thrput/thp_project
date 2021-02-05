@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:config="http://www.sds.samsung.com/schema/service"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+
+<!--
+	<bean id="SessionInfoBean"
+		class="tech3g.common.web.session.SessionInfoBean" scope="session">
+		<aop:scoped-proxy/>
+	</bean>
+ -->
+
+	<bean id="serviceAudit"
+		class="tech3g.common.advices.ServiceAuditAdvice"
+		parent="baseAdvice">
+		<property name="messageSource" ref="messageSource"/>
+		<property name="comnAuditDao" ref="COMNAuditDao"/>
+		<!-- <property name="txManager" ref="txManager"/> -->
+	</bean>
+
+	<aop:config>
+		<aop:aspect ref="serviceAudit">
+			<aop:pointcut id="queryServiceFind"
+				expression="execution(public * anyframe.core.query..*QueryServiceImpl.find*(..))"/>
+			<aop:before method="auditQuery"
+				pointcut-ref="queryServiceFind" />
+		</aop:aspect>
+		<aop:aspect ref="serviceAudit">
+			<aop:pointcut id="serviceMethod"
+				expression="execution(public * tech3g.fk..*ServiceImpl.*(..))"/>
+			<aop:before method="auditService"
+				pointcut-ref="serviceMethod" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
+

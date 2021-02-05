@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+<!--hibernate jdbc configuration here-->
+<!--hibernate jdbc configuration-START-->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">tech3g</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tech3g_db</property>
+<!--hibernate jdbc configuration-END-->
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.connection.shutdown">true</property>
+    </session-factory>
+</hibernate-configuration>

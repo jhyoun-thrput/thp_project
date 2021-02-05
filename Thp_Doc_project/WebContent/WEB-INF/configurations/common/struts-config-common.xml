@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+
+	<!-- ###################################################### -->
+	<!-- * ●FormBeanの定義 -->
+	<!-- ###################################################### -->
+	<form-beans>
+
+		<!-- =========================================== -->
+		<!-- User Regi									 -->
+		<!-- =========================================== -->
+		<form-bean name="LoginPassForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
+
+	</form-beans>
+
+	<!-- ###################################################### -->
+	<!-- * ●Actionの定義 -->
+	<!-- ###################################################### -->
+	<action-mappings type="tech3g.common.web.ServiceActionMapping">
+
+		<!-- =================================== -->
+		<!-- Ajaxの情報(検索) -->
+		<!-- =================================== -->
+		<action path="/co/aj/ajaxSrchService" scope="request"
+			type="tech3g.common.web.ajax.actions.COAJSrchAction">
+			<set-property property="method" value="getInfoByAjax" />
+			<set-property property="tokenCheck" value="false" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- InitConfigXML Action -->
+		<!-- =========================================== -->
+		<action path="/common/InitConfigXML" scope="request"
+			type="tech3g.common.web.InitConfigXMLAction">
+			<description>InitConfigXML</description>
+			<set-property property="method" value="execute" />
+			<forward name="success" path=".InitConfigXml" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- Login Action -->
+		<!-- =========================================== -->
+		<action path="/common/InitMenu" scope="request"
+			type="tech3g.common.action.InitMenuAction">
+			<forward name="success" path="/pages/common/login.jsp" />
+			<forward name="fail" path="/pages/common/login.jsp" />
+		</action>
+
+		<action path="/common/loginCheck" scope="request"
+			type="tech3g.common.action.LoginCheckAction">
+			<forward name="fail" path="/pages/common/login.jsp" />
+			<forward name="success" path="/layouts/framesetLayout.jsp" />
+			<forward name="passUpt" path="/doc/user/initPassUpt.do" />
+		</action>
+
+		<action path="/common/logout" scope="request"
+			type="tech3g.common.action.InitMenuAction">
+			<set-property property="method" value="logout" />
+			<forward name="success" path="/pages/common/login.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>
+

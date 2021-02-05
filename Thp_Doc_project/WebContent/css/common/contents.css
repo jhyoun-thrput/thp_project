@@ -1,0 +1,226 @@
+/********************************************************************************/
+/* Contents Cascading Style Sheet                            */
+/********************************************************************************/
+
+
+body,td  {margin-top:10; margin-left:10; margin-right:10; margin-bottom:10;
+          font-family:"MS PGothic"; font-size:9pt; color:#666666; line-height:16px}
+
+img      {border:0}
+
+A:link    {font-size:9pt; color:#666666; text-decoration:none}
+A:visited {font-size:9pt; color:#666666; text-decoration:none}
+A:active  {font-size:9pt; color:#666666; text-decoration:none}
+A:hover   {font-size:9pt; color:#d24402; text-decoration:none}
+
+
+
+/********** Title **********/
+.subject {font-size:14px; color:#0046a1; font-weight:bold}
+.title   {font-size:9pt; color:#0046a1; font-weight:bold; height:24px}
+.title_s {font-size:9pt; color:#0046a1; height:24px}
+.red     {color:#ff0000}
+
+
+
+/********** Height **********/
+.h_title   {height:10px}
+.h_menu    {height:15px}
+.h_menu2   {height:10px}
+.h_button  {height:20px}
+.h_s       {height:3px}
+
+
+
+
+/********** Table **********/
+.table_bg {background:#dad8d9}
+.table_bg_fix {background:#dad8d9; TABLE-layout:fixed;}
+.td_f     {background:#f9f7e0; color:#3d3d3d; height:20px; text-align:center}
+.td_f2    {background:#f9f7e0; color:#3d3d3d; height:20px; padding:0 6}
+.td_w     {background:#ffffff; color:#666666; padding:0 2}  /*input*/
+.td_w2    {background:#ffffff; color:#666666; padding:1 2}  /*textarea(5 7)*/
+
+.td_w3    {background:#ffffff; color:#666666; padding:2 6; height:20px} /*text*/
+.td_w3r   {background:#ffffff; color:#666666; padding:2 6; text-align:right; height:20px} /*text-right*/
+.td_wc    {background:#ffffff; color:#666666; padding:2 6; text-align:center; height:20px} /*text-center*/
+
+.td_ad    {background:#cccccc; color:#666666; padding:2 6; text-align:center; width:40px; height:30px; cursor: pointer;} /* address popup */
+.td_ad_o  {background:#f9f7e0; color:#666666; padding:2 6; text-align:center; width:40px; height:30px; cursor: pointer;} /* address popup */
+
+/********** Board **********/
+.head         {background:#e4ecf3; color:#3d3d3d; height:20px; text-align:center}
+.head1        {background:#e4ecf3; color:#3d3d3d; padding:2 8; height:20px; text-align:center}
+.board_w      {background:#ffffff; color:#666666; padding:2 8; height:20px}
+.board_w_over {background:#ffefd6; color:#666666; padding:2 8; height:20px}
+.board_wc     {background:#ffffff; color:#666666; padding:2 8; height:20px; text-align:center}
+.board_wr     {background:#ffffff; color:#666666; padding:2 8; height:20px; text-align:right}
+.board_winput      {background:#ffffff; color:#666666; padding:0 2; height:20px}
+.board_winput_over {background:#ffefd6; color:#666666; padding:0 2; height:20px}
+
+.board_y      {background:#f9f7e0; color:#666666; padding:2 8; height:20px}
+.board_y_over {background:#ffefd6; color:#666666; padding:2 8; height:20px}
+.board_yc     {background:#f9f7e0; color:#666666; padding:2 8; height:20px; text-align:center}
+.board_yinput      {background:#f9f7e0; color:#666666; padding:0 2; height:20px}
+.board_yinput_over {background:#ffefd6; color:#666666; padding:0 2; height:20px}
+
+.board_w2      {background:#ffffff; color:#666666; padding:2 2; height:20px}
+.board_wc2     {background:#ffffff; color:#666666; padding:2 2; height:20px; text-align:center}
+.board_wr2     {background:#ffffff; color:#666666; padding:2 2; height:20px; text-align:right}
+.board_y2      {background:#f9f7e0; color:#666666; padding:2 2; height:20px}
+.board_yc2     {background:#f9f7e0; color:#666666; padding:2 2; height:20px; text-align:center}
+.board_yr2     {background:#f9f7e0; color:#666666; padding:2 2; height:20px; text-align:right}
+
+.board_wr3    {background:#f9f7e0; color:#3d3d3d; padding:2 8; height:20px; text-align:right}
+.board_wr4    {background:#f9f7e0; color:#3d3d3d; padding:2 2; height:20px; text-align:right}
+
+.cell_w      {background:#ffffff; color:#666666; padding:2 8}
+.cell_w_over {background:#ffefd6; color:#666666; padding:2 8}
+
+/*2line*/
+.board_table   {border-top:1px solid #dad8d9; border-left:1px solid #dad8d9}
+.board_table2  {border-left:1px solid #dad8d9}
+.board_head    {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9;
+                background:#e4ecf3; color:#3d3d3d; font-weight:bold; height:20px; text-align:center}
+.board_td      {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 8; height:20px}
+.board_tdc     {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 8; height:20px; text-align:center}
+.board_tdr     {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 8; height:20px; text-align:right}
+.board_tdinput {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:0 2; height:20px}
+
+/*padding_s*/
+.board_td2     {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 2; height:20px}
+.board_tdc2    {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 2; height:20px; text-align:center}
+.board_tdr2    {border-right:1px solid #dad8d9; border-bottom:1px solid #dad8d9; padding:2 2; height:20px; text-align:right}
+
+/*image*/
+.td_border   {border:1px solid #dad8d9; text-align:center; padding:10 0; font-weight:bold; color:#ff0000} /*image_s*/
+.td_border_b {border:1px solid #dad8d9; text-align:center; padding:1px; font-weight:bold; color:#ff0000; height:190px} /*image_big*/
+
+.num           {font-family:"verdana"; font-size:10px; color:#454545; text-decoration:none; padding-bottom:2px}
+.num A:link    {font-family:"verdana"; font-size:10px; color:#454545; text-decoration:none}
+.num A:visited {font-family:"verdana"; font-size:10px; color:#454545; text-decoration:none}
+.num A:active  {font-family:"verdana"; font-size:10px; color:#454545; text-decoration:none}
+.num A:hover   {font-family:"verdana"; font-size:10px; color:#fd7112; text-decoration:none}
+.num_s         {font-family:"verdana"; font-size:10px; color:#fd7112; text-decoration:none; font-weight:bold}
+
+
+.iframe_bg {margin-top:0; margin-left:0; margin-right:0; margin-bottom:0; background:#f3f3f2}
+
+
+/********** Button **********/
+.search           {font-size:9pt; color:#b8d1cc; text-decoration:none; padding:1 10 0 10; background:url(../images/common/butt_sbg.gif)}
+.search A:link    {font-size:9pt; color:#ffffff; text-decoration:none}
+.search A:visited {font-size:9pt; color:#ffffff; text-decoration:none}
+.search A:active  {font-size:9pt; color:#ffffff; text-decoration:none}
+.search A:hover   {font-size:9pt; color:#b2fcef; text-decoration:none}
+
+.dblue           {font-size:9pt; color:#8f92a1; text-decoration:none; padding:1 8 0 8; background:url(../images/common/butt_gbg.gif)}
+.dblue A:link    {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.dblue A:visited {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.dblue A:active  {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.dblue A:hover   {font-size:9pt; color:#0e72e1; text-decoration:none}
+
+.brown           {font-size:9pt; color:#888789; text-decoration:none; padding:1 8 0 8; background:url(../images/common/butt_bbg.gif);
+                  text-align:center}
+.brown A:link    {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.brown A:visited {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.brown A:active  {font-size:9pt; color:#2d2e2e; text-decoration:none}
+.brown A:hover   {font-size:9pt; color:#62633b; text-decoration:none}
+
+
+
+
+/********** Form **********/
+.input   {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#ffffff; height:18px; padding:2 2 0 2}
+.input_o {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#eef1f7; height:18px; padding:2 2 0 2}
+.input_r  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#ffffff; height:18px; padding:2 2 0 2;
+           text-align:right}
+.input_ro {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#eef1f7; height:18px; padding:2 2 0 2;
+           text-align:right}
+
+.input_d  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#e2f0ee; height:18px; padding:2 2 0 2}
+.input_dr {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#e2f0ee; height:18px; padding:2 2 0 2;
+           text-align:right}
+
+.input_e   {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe;
+            background:url(/images/common/icon_ess01.gif) no-repeat right top #ffffff; height:18px; padding:2 2 0 2}
+.input_eo {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #bebebe;
+            background:#eef1f7; height:18px; padding:2 2 0 2}
+.input_eb   {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #99bdd2;
+            background:url(/images/common/icon_ess02.gif) no-repeat left top #ffffff; height:18px; padding:2 2 0 2}
+.input_ebo {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #99bdd2;
+            background:#eef1f7; height:18px; padding:2 2 0 2}
+
+.input_readonly  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:0px solid #ffffff; background:transparent; height:18px;
+                  padding:2 2 0 2}
+.input_readonlyc  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #ffffff; background:#ffffff; height:18px;
+                  padding:2 2 0 2; text-align:center}
+.input_readonlyr  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #ffffff; background:#ffffff; height:18px;
+                  padding:2 2 0 2; text-align:right}
+.input_readonly_y  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #ffffff; background:#f9f7e0; height:18px;
+                  	padding:2 2 0 2}
+.input_readonlyc_y  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #ffffff; background:#f9f7e0; height:18px;
+                  	padding:2 2 0 2; text-align:center}
+.input_readonlyr_y  {font-family: "MS PGothic"; font-size:9pt; color:#666666; border:1px solid #ffffff; background:#f9f7e0; height:18px;
+                  	padding:2 2 0 2; text-align:right}
+
+.input_mc   {font-family: "MS PMincho"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#ffffff; height:18px; padding:2 2 0 2}
+.input_o_mc {font-family: "MS PMincho"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#eef1f7; height:18px; padding:2 2 0 2}
+.input_d_mc  {font-family: "MS PMincho"; font-size:9pt; color:#666666; border:1px solid #bebebe; background:#e2f0ee; height:18px; padding:2 2 0 2}
+/********** Calendar **********/
+.diary_date               {background:#ffffff; font-size:13pt; color:#464646; text-decoration:none; text-align:center; height:24px; line-height:20px}
+.diary_date A:link        {font-size:13pt; color:#464646; text-decoration:none}
+.diary_date A:visited     {font-size:13pt; color:#464646; text-decoration:none}
+.diary_date A:active      {font-size:13pt; color:#464646; text-decoration:none}
+.diary_date A:hover       {font-size:13pt; color:#464646; text-decoration:underline}
+
+.diary_sunday             {background:#fef3ed; font-size:13pt; color:#f26522; text-decoration:none; text-align:center; height:24px; line-height:20px}
+.diary_sunday A:link      {font-size:13pt; color:#f26522; text-decoration:none}
+.diary_sunday A:visited   {font-size:13pt; color:#f26522; text-decoration:none}
+.diary_sunday A:active    {font-size:13pt; color:#f26522; text-decoration:none}
+.diary_sunday A:hover     {font-size:13pt; color:#f26522; text-decoration:underline}
+
+.diary_saturday           {background:#eef9ff; font-size:13pt; color:#00a8ff; text-decoration:none; text-align:center; height:24px; line-height:20px}
+.diary_saturday A:link    {font-size:13pt; color:#00a8ff; text-decoration:none}
+.diary_saturday A:visited {font-size:13pt; color:#00a8ff; text-decoration:none}
+.diary_saturday A:active  {font-size:13pt; color:#00a8ff; text-decoration:none}
+.diary_saturday A:hover   {font-size:13pt; color:#00a8ff; text-decoration:underline}
+
+
+
+/********** Tab **********/
+.tab_bg          {background:url(/images/common/tab_bg02.gif); padding-left:2px; vertical-align:bottom}
+.tab_ct          {border-right:1px solid #acacad; border-bottom:1px solid #acacad; border-left:1px solid #acacad; padding:10 5}
+
+.tab             {font-size:9pt; color:#616161; text-decoration:none; padding:3 15 0 15;
+                  background:url(/images/common/tab_d02.gif)}
+.tab A:link      {font-size:9pt; color:#616161; text-decoration:none}
+.tab A:visited   {font-size:9pt; color:#616161; text-decoration:none}
+.tab A:active    {font-size:9pt; color:#616161; text-decoration:none}
+.tab A:hover     {font-size:9pt; color:#0046a1; text-decoration:none}
+
+.tab_s           {font-size:9pt; color:#0046a1; text-decoration:none; padding:3 13 0 13;
+                  background:url(/images/common/tab_s02.gif); font-weight:bold}
+.tab_s A:link    {font-size:9pt; color:#0046a1; text-decoration:none; font-weight:bold}
+.tab_s A:visited {font-size:9pt; color:#0046a1; text-decoration:none; font-weight:bold}
+.tab_s A:active  {font-size:9pt; color:#0046a1; text-decoration:none; font-weight:bold}
+.tab_s A:hover   {font-size:9pt; color:#0046a1; text-decoration:none; font-weight:bold}
+
+
+
+
+/********** Layer **********/
+.layer_border {border:1px solid #b9b9b9}
+.layer_line   {height:1px; background:#eeeeee}
+.layer_close  {height:18px; background:#f8f8f8; text-align:right; padding-right:5px}
+
+.layer_link             {font-size:9pt; color:#666666; text-decoration:none; padding:1 1}
+.layer_link A:link      {font-size:9pt; color:#666666; text-decoration:none}
+.layer_link A:visited   {font-size:9pt; color:#666666; text-decoration:none}
+.layer_link A:active    {font-size:9pt; color:#666666; text-decoration:none}
+.layer_link A:hover     {font-size:9pt; color:#666666; text-decoration:none}
+
+.layer_s {scrollbar-face-color: #ffffff; scrollbar-shadow-color: #e5e5e5;
+               scrollbar-highlight-color: #e5e5e5; scrollbar-3dlight-color: #ffffff;
+               scrollbar-darkshadow-color: #ffffff; scrollbar-track-color: #ffffff;
+               scrollbar-arrow-color: #999999;}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//TITAN//DTD QUERYSERVICE//EN"
+	"http://www.sds.samsung.co.kr/anyframe/anyframe_core_query_mapping.dtd">
+
+<!-- ======================================================
+ * 論　　理　　名：	Tech3g Statis
+ * オブジェクト名：
+ * 適　　　　　用：
+===========================================================-->
+<queryservice>
+	<queries>
+
+	 <query id="statis.insertSpbException" isDynamic="true">
+            <statement><![CDATA[
+
+	            insert into tech3g_db.statis_spb_exception
+						(
+						        statis_flg
+						    ,   occr_time
+						    ,   bs_name
+						    ,   bs_no
+						    ,   bs_type
+						    ,   bs_ip
+						    ,   statis_name
+						    ,   comment
+						    ,   regi_user
+						    ,   regi_date
+						    ,   upt_date
+						)
+				values
+						(
+								:statis_flg
+						    ,   :occr_time
+						    ,   :bs_name
+						    ,   :bs_no
+						    ,   :bs_type
+						    ,   :bs_ip
+						    ,   :statis_name
+						    ,   :comment
+						    ,   :user_id
+						    ,   SYSDATE()
+						    ,   SYSDATE()
+						)
+
+            ]]></statement>
+			<param name="statis_flg" 			type="VARCHAR" />
+			<param name="occr_time" 		type="VARCHAR" />
+			<param name="bs_name" 			type="VARCHAR" />
+			<param name="bs_no" 				type="VARCHAR" />
+			<param name="bs_type" 			type="VARCHAR" />
+			<param name="bs_ip" 				type="VARCHAR" />
+			<param name="statis_name" 	type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+        </query>
+        
+       <query id="statis.searchSpbException" isDynamic="true">
+            <statement><![CDATA[
+
+				select
+						        statis_flg
+						    ,   occr_time
+						    ,   bs_name
+						    ,   bs_no
+						    ,   bs_type
+						    ,   bs_ip
+						    ,   statis_name
+						    ,   comment
+						    ,   regi_user
+						    ,   date_format(regi_date, '%Y-%m-%d') regi_date
+						    ,   date_format(upt_date, '%Y-%m-%d') upt_date
+				from
+						tech3g_db.statis_spb_exception
+				
+				where
+						1 = 1
+				
+				order by	
+						regi_date desc
+
+            ]]></statement>
+			<param name="statis_flg" 			type="VARCHAR" />
+			<param name="occr_time" 		type="VARCHAR" />
+			<param name="bs_name" 			type="VARCHAR" />
+			<param name="bs_no" 				type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+        </query>
+
+	</queries>
+</queryservice>
+

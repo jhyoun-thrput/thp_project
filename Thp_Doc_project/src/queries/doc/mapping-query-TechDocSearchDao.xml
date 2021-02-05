@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//TITAN//DTD QUERYSERVICE//EN"
+	"http://www.sds.samsung.co.kr/anyframe/anyframe_core_query_mapping.dtd">
+	<!--
+		======================================================
+		* オブジェクト名：
+		* 適 用：
+		* version
+		*	修正履歴
+		* 		<li>2012/06/12 : 新規作成(revised by Yun.j.h)</li>
+		===========================================================
+	-->
+<queryservice>
+	<queries>
+        <query id="doc.techDocSearch" isDynamic="true">
+            <statement><![CDATA[
+
+					select
+						    	FORMAT(a.rownum, 0) rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	a.upt_user
+	                    	,	a.regi_date
+	                    	,	a.upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+					from
+	                    (select
+	                    		@RNUM := @RNUM + 1 rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	a.upt_user
+	                    	,	date_format(a.regi_date, '%Y-%m-%d') regi_date
+	                    	,	date_format(a.upt_date, '%Y-%m-%d') upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+
+	                    from
+	                    		 (select  
+		                                    a.doc_code
+		                                ,	b.doc_index
+		                                ,	b.doc_name
+		                                ,	b.doc_type
+		                                ,	b.doc_link
+		                                ,	b.regi_user
+		                                ,   b.upt_user
+		                                ,	b.regi_date
+		                                ,	b.upt_date
+		                                ,	b.comment
+		                                ,	b.doc_ver
+	                          from
+	                           			 tech3g_db.tech3g_doc_code a inner join tech3g_db.tech3g_doc_info b
+	                            		on (a.doc_code = b.doc_code)  
+	                          where
+	                            			1 = 1
+								#if($doc_code != '')
+									and b.doc_code = :doc_code
+								#end
+								#if($doc_name != '')
+		                    		and b.doc_name like  {{ doc_name }}
+								#end
+								#if($doc_type != '')
+		                    		and b.doc_type = :doc_type
+								#end
+								#if($regi_user != '')
+		                    		and b.regi_user = :regi_user
+								#end
+								#if($doc_ver != '')
+									and b.doc_ver = :doc_ver
+								#end
+								#if($comment != '')
+									and b.comment like  {{ comment }}
+								#end
+								#if($regi_date != '')
+									and b.regi_date >= :regi_date
+								#end
+                            ) a
+	                    	,	( select @RNUM := 0 ) row
+
+						order by
+								a.regi_date desc, a.upt_date desc, a.doc_name desc) a
+
+					limit :startNo , :endNo
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="regi_user" 	type="VARCHAR" />
+            <param name="regi_date" 	type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+			<param name="startNo" 		type="VARCHAR" />
+			<param name="endNo" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.searchDocInfoExcel" isDynamic="true">
+            <statement><![CDATA[
+
+					select
+						    	FORMAT(a.rownum, 0) rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	a.regi_date
+	                    	,	a.upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+					from
+	                    (select
+	                    		@RNUM := @RNUM + 1 rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	date_format(a.regi_date, '%Y-%m-%d %T') regi_date
+	                    	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+
+	                    from
+	                    		 (select  
+		                                    a.doc_code
+		                                ,	b.doc_index
+		                                ,	b.doc_name
+		                                ,	b.doc_type
+		                                ,	b.doc_link
+		                                ,	b.regi_user
+		                                ,	b.regi_date
+		                                ,	b.upt_date
+		                                ,	b.comment
+		                                ,	b.doc_ver
+	                          from
+	                           			 tech3g_db.tech3g_doc_code a inner join tech3g_db.tech3g_doc_info b
+	                            		on (a.doc_code = b.doc_code)  
+	                          where
+	                            			1 = 1
+								#if($doc_code != '')
+									and b.doc_code = :doc_code
+								#end
+								#if($doc_name != '')
+		                    		and b.doc_name like  {{ doc_name }}
+								#end
+								#if($doc_type != '')
+		                    		and b.doc_type = :doc_type
+								#end
+								#if($regi_user != '')
+		                    		and b.regi_user = :regi_user
+								#end
+								#if($doc_ver != '')
+									and b.doc_ver = :doc_ver
+								#end
+								#if($comment != '')
+									and b.comment like  {{ comment }}
+								#end
+								#if($regi_date != '')
+									and b.regi_date >= :regi_date
+								#end
+                            ) a
+	                    	,	( select @RNUM := 0 ) row
+
+						order by
+								a.regi_date desc, a.upt_date desc, a.doc_name desc) a
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="regi_user" 	type="VARCHAR" />
+            <param name="regi_date" 	type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.selectedDocInfoList" isDynamic="true">
+            <statement><![CDATA[
+
+					select
+						    	FORMAT(a.rownum, 0) rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	a.regi_date
+	                    	,	a.upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+					from
+	                    (select
+	                    		@RNUM := @RNUM + 1 rownum
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	date_format(a.regi_date, '%Y-%m-%d') regi_date
+	                    	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+	                    from
+	                    		(select  
+		                                    a.doc_code
+		                                ,	b.doc_index
+		                                ,	b.doc_name
+		                                ,	b.doc_type
+		                                ,	b.doc_link
+		                                ,	b.regi_user
+		                                ,	b.regi_date
+		                                ,	b.upt_date
+		                                ,	b.comment
+		                                ,	b.doc_ver
+	                          from
+	                           			 tech3g_db.tech3g_doc_code a inner join tech3g_db.tech3g_doc_info b
+	                            		on (a.doc_code = b.doc_code)  
+	                          where
+	                            			1 = 1
+		                        #if($doc_code != '')
+									and b.doc_code = :doc_code
+								#end
+								#if($index_field != '')
+									and b.doc_index IN (  {{ index_field }} )
+								#end
+                            ) a,	( select @RNUM := 0 ) row
+
+						order by
+								a.doc_code, doc_index) a
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="index_field"		type="VARCHAR" />
+        </query>
+
+        <query id="doc.techDocHistSearch" isDynamic="true">
+            <statement><![CDATA[
+
+					select
+						    	FORMAT(a.rownum, 0) rownum
+						    ,	a.seq
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.upt_user
+	                    	,	a.upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+					from
+	                    (select
+	                    		@RNUM := @RNUM + 1 rownum
+	                    	,	a.seq
+	                    	,	a.doc_code
+	                    	,	a.doc_index
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.upt_user
+	                    	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+
+	                    from
+	                    		tech3g_db.tech3g_doc_info_history a
+	                    	,	( select @RNUM := 0 ) row
+	                    where
+									a.doc_code 	= :doc_code
+	                    		and a.doc_index = :doc_index
+						order by
+								a.seq desc) a
+
+					limit :startNo , :endNo
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_index"		type="VARCHAR" />
+			<param name="startNo" 		type="VARCHAR" />
+			<param name="endNo" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.techDocHistSearchCnt" isDynamic="true">
+            <statement><![CDATA[
+
+                    select
+							count(*) CNT
+                    from
+                    		tech3g_db.tech3g_doc_info_history a
+                    where
+								a.doc_code 	= :doc_code
+                    		and a.doc_index = :doc_index
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_index"		type="VARCHAR" />
+        </query>
+
+         <query id="doc.techDocCodeLink" isDynamic="true">
+            <statement><![CDATA[
+
+                    select
+							doc_code_link
+                    from
+                    		tech3g_db.tech3g_doc_code
+                    where
+								doc_code 	= :doc_code
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.searchDocCodeList" isDynamic="true">
+            <statement><![CDATA[
+
+                    select
+							doc_code
+						,	doc_code_name
+						,	doc_code_link
+						,	doc_root_path
+						,	regi_user
+						,	upt_user
+						,	regi_date
+						,	upt_date
+						,	comment
+                    from
+                    		tech3g_db.tech3g_doc_code
+                    order by
+                    		doc_code
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.isTechDocCodeLink" isDynamic="true">
+            <statement><![CDATA[
+
+                    select
+							count(*) CNT
+                    from
+                    		tech3g_db.tech3g_doc_code
+                    where
+                    		1 = 1
+                       	#if($doc_code_link != '')
+							and	doc_code_link = :doc_code_link
+						#end
+						#if($doc_root_path != '')
+							and	doc_root_path = :doc_root_path
+						#end
+            ]]></statement>
+
+            <param name="doc_code_link" 		type="VARCHAR" />
+            <param name="doc_root_path" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.techDocSearchCnt" isDynamic="true">
+            <statement><![CDATA[
+
+                   		 select  
+									count(*) CNT
+                         from
+                           			 tech3g_db.tech3g_doc_code a inner join tech3g_db.tech3g_doc_info b
+                            		on (a.doc_code = b.doc_code)  
+                         where
+                            			1 = 1
+							#if($doc_code != '')
+								and b.doc_code = :doc_code
+							#end
+							#if($doc_name != '')
+	                    		and b.doc_name like  {{ doc_name }}
+							#end
+							#if($doc_type != '')
+	                    		and b.doc_type = :doc_type
+							#end
+							#if($regi_user != '')
+	                    		and b.regi_user = :regi_user
+							#end
+							#if($doc_ver != '')
+								and b.doc_ver = :doc_ver
+							#end
+							#if($comment != '')
+								and b.comment like  {{ comment }}
+							#end
+							#if($regi_date != '')
+								and b.regi_date >= :regi_date
+							#end
+
+            ]]></statement>
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="regi_user" 	type="VARCHAR" />
+            <param name="regi_date" 	type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+        </query>
+
+
+
+       <query id="doc.techDocCodeSearch" isDynamic="true">
+            <statement><![CDATA[
+
+				select
+						doc_code
+					,	doc_code_name
+				from
+						tech3g_db.tech3g_doc_code
+				order by
+				    	doc_code
+
+            ]]></statement>
+            <param name="doc_code_flg" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.techDocInfoIndex" isDynamic="true">
+            <statement><![CDATA[
+
+				select
+						IFNULL(MAX(doc_index), 0) + 1 doc_index
+				from
+						tech3g_db.tech3g_doc_info
+				where
+						doc_code = :doc_code
+
+            ]]></statement>
+            <param name="doc_code" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.maxTechDocCode" isDynamic="true">
+            <statement><![CDATA[
+
+				select
+						FORMAT(IFNULL(MAX(doc_code), 0) + 1, 0) doc_code
+				from
+						tech3g_db.tech3g_doc_info
+				limit 1
+
+            ]]></statement>
+            <param name="doc_code_link" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.selectDocCode" isDynamic="true">
+        <statement><![CDATA[
+
+				select
+						doc_code
+				from
+						tech3g_db.tech3g_doc_code
+				where
+						doc_code_link = :doc_code_link
+				limit 1
+
+            ]]></statement>
+            <param name="doc_code_link" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.getRootPath" isDynamic="true">
+        <statement><![CDATA[
+
+				select
+						doc_root_path
+				from
+						tech3g_db.tech3g_doc_code
+				where
+						doc_root_path = :doc_root_path
+				limit 1
+
+            ]]></statement>
+            <param name="doc_root_path" 		type="VARCHAR" />
+        </query>
+
+         <query id="doc.techDocDetail" isDynamic="true">
+            <statement><![CDATA[
+
+	                    select
+	                    		a.doc_code
+	                    	,	a.doc_index
+	                    	, 	(select doc_code_name from tech3g_db.tech3g_doc_code where doc_code = a.doc_code) doc_code_name
+	                    	,	a.doc_name
+	                    	,	a.doc_type
+	                    	,	a.doc_link
+	                    	,	a.regi_user
+	                    	,	date_format(a.regi_date, '%Y-%m-%d %T') regi_date
+	                    	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+	                    	,	a.comment
+	                    	,	a.doc_ver
+
+	                    from
+	                    		tech3g_db.tech3g_doc_info a
+	                    where
+								a.doc_code = :doc_code
+							and	a.doc_index = :doc_index
+
+            ]]></statement>
+
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_index"		type="INTEGER" />
+        </query>
+
+        <query id="doc.updateDocDetail" isDynamic="true">
+            <statement><![CDATA[
+
+					update
+						tech3g_db.tech3g_doc_info a
+					set
+							a.doc_name 		= :doc_name
+						,	a.doc_type 		= :doc_type
+						,	a.doc_link 		= :doc_link
+						,	a.upt_user 		= :user_id
+						,	a.upt_date		= SYSDATE()
+						,	a.doc_ver		= :doc_ver
+						,	a.comment		= :comment
+					where
+							a.doc_code	=	:doc_code
+						and	a.doc_index	=	:doc_index
+
+            ]]></statement>
+
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="doc_link" 		type="VARCHAR" />
+            <param name="user_id" 		type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+
+			<param name="doc_code" 		type="VARCHAR" />
+			<param name="doc_index" 	type="VARCHAR" />
+        </query>
+
+        <query id="doc.insertDocDetail" isDynamic="true">
+            <statement><![CDATA[
+
+					insert into
+						tech3g_db.tech3g_doc_info
+						(	doc_code
+						,	doc_index
+						,	doc_name
+						,	doc_type
+						,	doc_link
+						,	regi_user
+						,	upt_user
+						,	regi_date
+						,	upt_date
+						,	doc_ver
+						,	comment
+						)
+
+					values
+						(
+							:doc_code
+						,	:doc_index
+						,	:doc_name
+						,	:doc_type
+						,	:doc_link
+						,	:user_id
+						,	:user_id
+						,	SYSDATE()
+						,	SYSDATE()
+						,	:doc_ver
+						,	:comment
+						)
+
+            ]]></statement>
+
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="doc_link" 		type="VARCHAR" />
+            <param name="user_id" 		type="VARCHAR" />
+            <param name="regi_date" 	type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+
+			<param name="doc_code" 		type="VARCHAR" />
+			<param name="doc_index" 	type="VARCHAR" />
+        </query>
+
+         <query id="doc.insertDocDetailBatch" isDynamic="true">
+            <statement><![CDATA[
+
+					insert into
+						tech3g_db.tech3g_doc_info
+						(	doc_code
+						,	doc_index
+						,	doc_name
+						,	doc_type
+						,	doc_link
+						,	regi_user
+						,	upt_user
+						,	regi_date
+						,	upt_date
+						,	doc_ver
+						,	comment
+						)
+
+					values
+						(
+							:doc_code
+						,	(select IFNULL(MAX(a.doc_index), 0) + 1 from tech3g_db.tech3g_doc_info a where a.doc_code = :doc_code)
+						,	:doc_name
+						,	:doc_type
+						,	:doc_link
+						,	:user_id
+						,	:user_id
+						,	SYSDATE()
+						,	SYSDATE()
+						,	:doc_ver
+						,	:comment
+						)
+            ]]></statement>
+
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="doc_link" 		type="VARCHAR" />
+            <param name="user_id" 		type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+
+			<param name="doc_code" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.insertDocCode" isDynamic="true">
+            <statement><![CDATA[
+
+					insert into
+						tech3g_db.tech3g_doc_code
+						(	doc_code
+						,	doc_code_name
+						,	doc_code_link
+						,	regi_user
+						,	upt_user
+						,	regi_date
+						,	upt_date
+						,	comment
+						)
+
+					values
+						(
+							:doc_code
+						,	:doc_code_name
+						,	:doc_code_link
+						,	:user_id
+						,	:user_id
+						,	SYSDATE()
+						,	SYSDATE()
+						,	:comment
+						)
+
+            ]]></statement>
+
+  			<param name="doc_code" 			type="VARCHAR" />
+			<param name="doc_code_name" 	type="VARCHAR" />
+            <param name="doc_code_link" 	type="VARCHAR" />
+            <param name="user_id" 			type="VARCHAR" />
+			<param name="comment" 			type="VARCHAR" />
+        </query>
+
+        <query id="doc.insertDocDetailHistory" isDynamic="true">
+            <statement><![CDATA[
+
+					insert into
+						tech3g_db.tech3g_doc_info_history
+						(	doc_code
+						,	doc_index
+						,	seq
+						,	doc_name
+						,	doc_type
+						,	doc_link
+						,	regi_user
+						,	upt_user
+						,	regi_date
+						,	upt_date
+						,	doc_ver
+						,	comment
+						)
+
+					values
+						(
+							:doc_code
+						,	:doc_index
+						,	(select IFNULL(MAX(seq), 0) + 1 seq from tech3g_db.tech3g_doc_info_history a where a.doc_code = :doc_code and a.doc_index = :doc_index )
+						,	:doc_name
+						,	:doc_type
+						,	:doc_link
+						,	:user_id
+						,	:user_id
+						,	SYSDATE()
+						,	SYSDATE()
+						,	:doc_ver
+						,	:comment
+						)
+            ]]></statement>
+
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="doc_link" 		type="VARCHAR" />
+            <param name="user_id" 		type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+
+			<param name="doc_code" 		type="VARCHAR" />
+			<param name="doc_index" 	type="VARCHAR" />
+        </query>
+
+	</queries>
+</queryservice>

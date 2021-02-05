@@ -1,0 +1,57 @@
+/*
+Menu Tree Style Sheet
+*/
+BODY, TABLE, TR, TD, SELECT,INPUT,DIV,SPAN,FORM,TEXTAREA
+{ font-family: "MS PGothic"; font-size: 12px; color: #333333; }
+
+A.:link {  color: #333333 ; text-decoration: none; cursor:hand}
+A.:hover {  color: #347BD9 ;text-decoration: none; }
+A.:active {  color: #347BD9 ; text-decoration: none;}
+A.:visited {  color: #333333 ; text-decoration: none;}
+A.: { onfocus : "this.blur();" }
+
+.Depth01 { 
+	font-size: 14px; 
+	color: #ffffff;
+	font-weight:bold;
+	line-height: 26px;
+	text-indent: 15px;
+	background-image: url(/images/common/leftMenuDep01Bg.gif);
+	background-repeat:no-repeat;
+}
+ 
+.Depth02on { 
+	font-size: 12px; 
+	line-height: 25px;
+	color: #505050;
+	font-weight:normal;
+	text-indent: 19px;
+	background-image: url(/images/common/leftMenuDep02_on.gif);
+	background-repeat:no-repeat;
+}
+  
+.Depth02off { 
+	font-size: 12px; 
+	line-height: 25px;
+	color: #505050;
+	font-weight:normal;
+	text-indent: 19px;
+	background-image: url(/images/common/leftMenuDep02_off.gif);
+	background-repeat:no-repeat;
+}
+
+.Depth03 { 
+	font-size: 12px; 
+	line-height: 20px;
+	color: #505050;
+	font-weight:normal;
+	text-indent: 14px;
+	background-image: url(/images/common/leftMenuDep03Bg.gif);
+	background-repeat:no-repeat;
+}
+
+.DepthEnd {
+	background-image: url(/images/common/space_line.gif);
+	line-height: 5px;
+	background-repeat:no-repeat;
+}

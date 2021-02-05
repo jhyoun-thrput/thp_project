@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//TITAN//DTD QUERYSERVICE//EN"
+	"http://www.sds.samsung.co.kr/anyframe/anyframe_core_query_mapping.dtd">
+
+<!-- ======================================================
+ * 論　　理　　名：バッチ作業スケジュール
+ * オブジェクト名：     Tech3g_batch_info
+ * 適　　　　　用：
+===========================================================-->
+<queryservice>
+	<queries>
+
+
+        <!-- ***** バッチ作業スケジュール情報を取得する。 ***** -->
+        <query id="doc.searchBatchInfo" isDynamic="true">
+            <statement><![CDATA[
+            SELECT
+            		a.bt_id dtl_bt_id
+            	,	b.bt_no dtl_bt_no
+            	,	a.bt_name
+            	,	date_format(b.bt_sched_dttm, '%Y-%m-%d %T')  dtl_bt_sched_dttm
+            	,	date_format(b.bt_begin_date, '%Y-%m-%d %T') dtl_begin_date
+            	,	date_format(b.bt_end_date, '%Y-%m-%d %T') dtl_end_date
+            	,	b.bt_param dtl_bt_param
+            	,	b.bt_status dtl_bt_status
+            	,	b.bt_hist_no
+            	,	date_format(b.regi_date, '%Y-%m-%d %T')  regi_date
+            	,	b.regi_user
+            	,	date_format(b.upt_date, '%Y-%m-%d %T') upt_date
+            	,	b.upt_user
+            	,	b.bt_msg dtl_bt_msg
+
+            FROM
+            		tech3g_db.tech3g_batch_master a inner join
+            		tech3g_db.Tech3g_batch_info b
+            		on (a.bt_id = b.bt_id)
+            WHERE
+                		b.bt_id = :bt_id
+                  	AND b.bt_no = :bt_no
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+            <param name="bt_no" type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュールの最新情報を取得する。 ***** -->
+        <query id="doc.searchBatchInfoDesc" isDynamic="true">
+            <statement><![CDATA[
+            SELECT
+            		bt_id
+            	,	bt_no
+            	,	bt_name
+            	,	date_format(bt_sched_dttm, '%Y-%m-%d %T') bt_sched_dttm
+            	,	date_format(bt_begin_date, '%Y-%m-%d %T') bt_begin_date
+            	,	date_format(bt_end_date, '%Y-%m-%d %T') bt_end_date
+            	,	bt_param
+            	,	bt_status
+            	,	bt_hist_no
+            	,	date_format(regi_date, '%Y-%m-%d %T')  regi_date
+            	,	regi_user
+            	,	date_format(upt_date, '%Y-%m-%d %T') upt_date
+            	,	upt_user
+            	,	bt_msg
+
+            FROM
+            		tech3g_db.Tech3g_batch_info
+			ORDER BY
+					bt_end_date desc
+			limit 1
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+            <param name="bt_no" type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報を取得する。 ***** -->
+        <query id="doc.searchBatchAjax" isDynamic="true">
+            <statement><![CDATA[
+            SELECT
+            	,	date_format(bt_begin_date, '%Y-%m-%d %T')  dtl_begin_date
+            	,	date_format(bt_end_date, '%Y-%m-%d %T')  dtl_end_date
+				,	date_format(bt_sched_dttm, '%Y-%m-%d %T')  dtl_bt_sched_dttm
+            	,	bt_status dtl_bt_status
+            	,	bt_msg dtl_bt_msg
+            FROM
+            		tech3g_db.Tech3g_batch_info
+            WHERE
+                		bt_id = :bt_id
+                  	AND bt_no = :bt_no
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+            <param name="bt_no" type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報を登録する。 ***** -->
+        <query id="doc.insertBatchInfo" isDynamic="true">
+            <statement><![CDATA[
+            INSERT INTO
+            			tech3g_db.tech3g_batch_info
+            (
+                	bt_id
+                ,	bt_no
+                ,	bt_sched_dttm
+                ,	bt_begin_date
+                ,	bt_param
+                , 	bt_status
+				,	regi_date
+				,	regi_user
+				,	upt_date
+                	)
+
+            VALUES (
+
+                	:bt_id
+                ,	(select IFNULL(MAX(a.bt_no), 0) + 1 bt_no from tech3g_db.tech3g_batch_info a where a.bt_id = :bt_id)
+				,	SYSDATE()
+				,	SYSDATE()
+				,	:bt_param
+                ,	:bt_status
+                ,	SYSDATE()
+                ,	:user_id
+                ,	SYSDATE()
+                   )
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="bt_sched_dttm" 	type="VARCHAR" />
+			<param name="bt_param" 			type="VARCHAR" />
+			<param name="bt_status" 		type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報をMERGEする。 ***** -->
+        <query id="doc.mergeBatchInfo" isDynamic="true">
+            <statement><![CDATA[
+
+	            replace into
+	            	tech3g_db.tech3g_doc_info
+	            set
+	            	doc_code	=	:doc_code
+
+	         #if ($doc_index == '')
+	         	,	doc_index	=	(select IFNULL(MAX(a.doc_index), 0) + 1 from tech3g_db.tech3g_doc_info a where a.doc_code = :doc_code)
+	         #else
+	         	,	doc_index	=	:doc_index
+	         #end
+	            ,	doc_name	=	:doc_name
+	            ,	doc_type	=	:doc_type
+	            ,	doc_link	=	:doc_link
+    	        ,	regi_user	=	:user_id
+            	,	regi_date	=	SYSDATE()
+          	 	,	upt_user	=	:user_id
+	            ,	doc_ver		=	:doc_ver
+	            ,	comment		=	:comment
+
+            ]]></statement>
+            <param name="doc_name"		type="VARCHAR" />
+            <param name="doc_type" 		type="VARCHAR" />
+            <param name="doc_link" 		type="VARCHAR" />
+            <param name="user_id" 		type="VARCHAR" />
+            <param name="regi_date" 	type="VARCHAR" />
+			<param name="doc_ver" 		type="VARCHAR" />
+			<param name="comment" 		type="VARCHAR" />
+
+			<param name="doc_code" 		type="VARCHAR" />
+			<param name="doc_index" 	type="VARCHAR" />
+        </query>
+
+        <query id="doc.mergeBatchCode" isDynamic="true">
+            <statement><![CDATA[
+
+	            replace into
+	            	tech3g_db.tech3g_doc_code
+	            set
+	             	doc_code	= :doc_code
+	             ,	doc_code_name	= :doc_code_name
+	             ,	doc_code_link	= :doc_code_link
+	             ,	doc_root_path = :doc_root_path
+	             ,	regi_user	=	:user_id
+	             ,	upt_user	=	:user_id
+	             ,	regi_date	=	SYSDATE()
+	             ,	upt_date	=	SYSDATE()
+	             ,	comment		=	:comment
+
+            ]]></statement>
+            <param name="doc_code" 			type="VARCHAR" />
+			<param name="doc_code_name" 	type="VARCHAR" />
+            <param name="doc_code_link" 	type="VARCHAR" />
+            <param name="user_id" 			type="VARCHAR" />
+			<param name="comment" 			type="VARCHAR" />
+			<param name="doc_root_path" 			type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報を更新する。 ***** -->
+        <query id="doc.updateBatchInfo" isDynamic="true">
+            <statement><![CDATA[
+
+            UPDATE
+            	tech3g_db.Tech3g_batch_info
+            SET
+            	bt_status = :bt_status
+            ,	bt_end_date = SYSDATE()
+            ,	bt_msg	= :bt_msg
+            ,	upt_date = SYSDATE()
+            ,	upt_user = :user_id
+
+            WHERE
+            	bt_id = :bt_id
+            and bt_no = :bt_no
+
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="bt_no" 			type="VARCHAR" />
+			<param name="bt_msg" 			type="VARCHAR" />
+			<param name="bt_status" 		type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+        </query>
+
+        <!-- ***** Doc_Code_Table Dataの削除を行う。 ***** -->
+        <query id="doc.deleteTechDocCode" isDynamic="true">
+            <statement><![CDATA[
+
+			delete from tech3g_db.tech3g_doc_code
+			#if($doc_code != '')
+				where doc_code = :doc_code
+			#end
+
+            ]]></statement>
+			<param name="doc_code" 			type="VARCHAR" />
+        </query>
+
+        <!-- ***** Doc_Info_Detail_Table Dataの削除を行う。 ***** -->
+        <query id="doc.deleteTechDocDetail" isDynamic="true">
+            <statement><![CDATA[
+
+			delete from tech3g_db.tech3g_doc_info
+			where 1=1
+			#if($doc_code != '')
+				and doc_code = :doc_code
+			#end
+			#if($doc_index != '')
+				and doc_index = :doc_index
+			#end
+
+            ]]></statement>
+			<param name="doc_code" 			type="VARCHAR" />
+			<param name="doc_index" 		type="VARCHAR" />
+        </query>
+
+        <query id="doc.techDocInfoMap" isDynamic="true">
+            <statement><![CDATA[
+
+                    select
+							a.doc_code
+						,	FORMAT(a.doc_index, 0) doc_index
+						,	a.doc_link
+                    from
+                    		tech3g_db.tech3g_doc_info a
+                    where
+                    		1 = 1
+                    	#if($doc_code != '')
+							and a.doc_code = :doc_code
+						#end
+						#if($doc_link != '')
+                    		and a.doc_link = :doc_link
+						#end
+
+            ]]></statement>
+            <param name="doc_code" 		type="VARCHAR" />
+            <param name="doc_link"		type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報を取得する。 ***** -->
+        <query id="doc.searchBatchList" isDynamic="true">
+            <statement><![CDATA[
+
+					select
+						    	FORMAT(a.rownum, 0) rownum
+			            	,	a.bt_id
+			            	,	a.bt_no
+			            	,	a.bt_name
+			            	,	a.bt_sched_dttm
+			            	,	a.bt_begin_date
+			            	,	a.bt_end_date
+			            	,	a.bt_param
+			            	,	a.bt_status
+			            	,	a.bt_hist_no
+			            	,	a.regi_date
+			            	,	a.regi_user
+			            	,	a.upt_date
+			            	,	a.upt_user
+			            	,	a.bt_msg
+					from
+
+						( select
+                     			@RNUM := @RNUM + 1 rownum
+                    		, 	a.bt_id
+			            	,	a.bt_no
+			            	,	a.bt_name
+			            	,	date_format(a.bt_sched_dttm, '%Y-%m-%d %T') bt_sched_dttm
+			            	,	date_format(a.bt_begin_date, '%Y-%m-%d %T') bt_begin_date
+			            	,	date_format(a.bt_end_date, '%Y-%m-%d %T') bt_end_date
+			            	,	a.bt_param
+			            	,	a.bt_status
+			            	,	a.bt_hist_no
+			            	,	date_format(a.regi_date, '%Y-%m-%d %T') regi_date
+			            	,	a.regi_user
+			            	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+			            	,	a.upt_user
+			            	,	a.bt_msg
+			            from
+		                   (select
+				            		a.bt_id
+				            	,	b.bt_no
+				            	,	a.bt_name
+				            	,	b.bt_sched_dttm
+				            	,	b.bt_begin_date
+				            	,	b.bt_end_date
+				            	,	b.bt_param
+				            	,	b.bt_status
+				            	,	b.bt_hist_no
+				            	,	a.regi_date
+				            	,	a.regi_user
+				            	,	a.upt_date
+				            	, 	a.upt_user
+				            	,	b.bt_msg
+		                    from
+		                    		tech3g_db.tech3g_batch_master a inner join  tech3g_db.Tech3g_batch_info b
+	                            	on (a.bt_id = b.bt_id)) a
+	                            ,	( select @RNUM := 0 ) row
+	                	where
+	                  			1 = 1
+                  #if ($bt_id != '')
+							AND a.bt_id = :bt_id
+                  #end
+                  #if ($bt_no != '')
+                            AND a.bt_no = :bt_no
+                  #end
+                  #if ($bt_begin_date != '' || $bt_end_date != '')
+                   			AND a.bt_sched_dttm	BETWEEN IFNULL(:bt_begin_date, '00000000000000') AND IFNULL(:bt_end_date, '99991231999999')
+                  #end
+						order by
+								a.bt_end_date desc) a
+
+					limit :startNo , :endNo
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="bt_no" 			type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+			<param name="bt_begin_date" 	type="VARCHAR" />
+			<param name="bt_end_date" 		type="VARCHAR" />
+			<param name="startNo" 			type="VARCHAR" />
+			<param name="endNo" 			type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報のカウント取得する。 ***** -->
+        <query id="doc.searchBatchListCnt" isDynamic="true">
+            <statement><![CDATA[
+
+            	select
+            		count(*) CNT
+            	from
+            		(select
+            			    a.bt_id
+		            	,	b.bt_no
+		            	,	a.bt_name
+		            	,	date_format(b.bt_sched_dttm, '%Y-%m-%d %T') bt_sched_dttm
+		            	,	date_format(b.bt_begin_date, '%Y-%m-%d %T') bt_begin_date
+		            	,	date_format(b.bt_end_date, '%Y-%m-%d %T') bt_end_date
+		            	,	b.bt_param
+		            	,	b.bt_status
+		            	,	b.bt_hist_no
+		            	,	date_format(a.regi_date, '%Y-%m-%d %T') regi_date
+		            	,	a.regi_user
+		            	,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+		            	, 	a.upt_user
+		            	,	b.bt_msg
+		            from
+                   		tech3g_db.tech3g_batch_master a inner join  tech3g_db.Tech3g_batch_info b
+                        on (a.bt_id = b.bt_id)) a
+	            where
+                   		1 = 1
+                  #if ($bt_id != '')
+							AND a.bt_id = :bt_id
+                  #end
+                  #if ($bt_no != '')
+                            AND a.bt_no = :bt_no
+                  #end
+                  #if ($bt_begin_date != '' || $bt_end_date != '')
+                   			AND a.bt_sched_dttm	BETWEEN IFNULL(:bt_begin_date, '00000000000000') AND IFNULL(:bt_end_date, '99991231999999')
+                  #end
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="bt_no" 			type="VARCHAR" />
+			<param name="bt_begin_date" 	type="VARCHAR" />
+			<param name="bt_end_date" 		type="VARCHAR" />
+        </query>
+
+
+        <!-- ***** bt_noOのMax番号を取得する。***** -->
+        <query id="doc.getTechBtId" isDynamic="true">
+            <statement><![CDATA[
+
+				select
+
+				    CONCAT('TechBT', IF(id > 9, id, CONCAT('0', id))) bt_id
+
+				from
+				    (select
+				        IFNULL(MAX(bt_no), 0) + 1 id
+				    from
+				        tech3g_db.Tech3g_batch_info
+				    where
+				        bt_id = :bt_id) a
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+        </query>
+
+                <!-- ***** bt_noOのMax番号を取得する。***** -->
+        <query id="doc.getMaxBtId" isDynamic="true">
+            <statement><![CDATA[
+
+				    select
+				        MAX(bt_no) bt_no
+				    from
+				        tech3g_db.Tech3g_batch_info
+				    where
+				        bt_id = :bt_id
+				    limit 1
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+        </query>
+
+        <query id="doc.searchBatchMaster" isDynamic="true">
+            <statement><![CDATA[
+				select
+						bt_id
+					,	bt_name
+					,	bt_flg
+					,	bt_link
+					,	bt_param
+					,	date_format(regi_date, '%Y-%m-%d %T') regi_date
+					,	regi_user
+				from
+					tech3g_db.tech3g_batch_master
+				where
+					1 = 1
+				#if ($bt_id != '')
+					AND bt_id = :bt_id
+                #end
+				order by
+					regi_date desc
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+        </query>
+
+        <query id="doc.insertBatchMaster" isDynamic="true">
+            <statement><![CDATA[
+				insert into
+					tech3g_db.tech3g_batch_master
+					(
+						bt_id
+					,	bt_name
+					,	bt_flg
+					,	bt_param
+					,	regi_date
+					,	regi_user
+					,	upt_date
+					)
+				values
+					(
+						:bt_id
+					,	:bt_name
+					,	:bt_flg
+					,	:bt_param
+					,	SYSDATE()
+					,	:user_id
+					,	SYSDATE()
+					)
+
+            ]]></statement>
+            <param name="bt_id" type="VARCHAR" />
+            <param name="bt_name" type="VARCHAR" />
+            <param name="bt_param" type="VARCHAR" />
+            <param name="user_id" type="VARCHAR" />
+            <param name="bt_flg" type="VARCHAR" />
+        </query>
+
+        <query id="doc.updateBatchMaster" isDynamic="true">
+            <statement><![CDATA[
+				update
+					tech3g_db.tech3g_batch_master
+				set
+						bt_name		=	:bt_name
+					,	bt_param	=	:bt_param
+					,	bt_flg		=	:bt_flg
+					,	upt_user	=	:user_id
+					,	upt_date	=	SYSDATE()
+				where
+						bt_id = :bt_id
+
+            ]]></statement>
+            <param name="bt_id" 	type="VARCHAR" />
+            <param name="bt_name" 	type="VARCHAR" />
+            <param name="bt_param" 	type="VARCHAR" />
+            <param name="user_id" 	type="VARCHAR" />
+            <param name="bt_flg" type="VARCHAR" />
+        </query>
+
+         <query id="doc.deleteBatchMaster" isDynamic="true">
+            <statement><![CDATA[
+				delete from tech3g_db.tech3g_batch_master
+				where
+					1 = 1
+				#if ($bt_id != '')
+					AND bt_id = :bt_id
+                #end
+
+            ]]></statement>
+            <param name="bt_id" 	type="VARCHAR" />
+        </query>
+
+	</queries>
+</queryservice>
+

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+	<form-beans>
+<!-- ###################################################### -->
+<!-- * ●FormBeanの定義 									-->
+<!-- ###################################################### -->
+
+		<!-- =========================================== -->
+		<!-- 技術文書検索 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gDocForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="doc_code" type="java.lang.String" />
+			<form-property name="doc_name" type="java.lang.String" />
+			<form-property name="doc_code_name" type="java.lang.String" />
+			<form-property name="doc_index" type="java.lang.Integer" />
+			<form-property name="doc_type" type="java.lang.String" />
+			<form-property name="doc_link" type="java.lang.String" />
+			<form-property name="regi_user" type="java.lang.String" />
+			<form-property name="upt_user" type="java.lang.String" />
+			<form-property name="upt_date" type="java.lang.String" />
+			<form-property name="doc_ver" type="java.lang.String" />
+
+			<form-property name="p_doc_code" type="java.lang.String" />
+			<form-property name="p_doc_name" type="java.lang.String" />
+			<form-property name="p_regi_user" type="java.lang.String" />
+			<form-property name="p_regi_date_from" type="java.lang.String" />
+			<form-property name="p_doc_type" type="java.lang.String" />
+			<form-property name="p_doc_ver" type="java.lang.String" />
+			<form-property name="p_doc_comment" type="java.lang.String" />
+		</form-bean>
+
+    	<!-- =========================================== -->
+		<!-- 技術文書詳細									 -->
+		<!-- =========================================== -->
+		<form-bean name="TechDocDetailForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="doc_file_path"    type="org.apache.struts.upload.FormFile"/>
+			<form-property name="doc_ver" type="java.lang.String" />
+		</form-bean>
+
+		<!-- =========================================== -->
+		<!-- 技術文書登録									 -->
+		<!-- =========================================== -->
+		<form-bean name="TechDocRegiForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="doc_file_path"    type="org.apache.struts.upload.FormFile"/>
+			<form-property name="file"   					type="org.apache.struts.upload.FormFile"/>
+			<form-property name="doc_code" type="java.lang.String" />
+			<form-property name="doc_ver" type="java.lang.String" />
+			<form-property name="doc_index" type="java.lang.String" />
+			<form-property name="upload_cnt" type="java.lang.Integer" />
+		</form-bean>
+
+		<!-- =========================================== -->
+		<!-- バッチ実行						 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gDocBatchForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="bt_id" type="java.lang.String"/>										<!-- バッチID -->
+			<form-property name="bt_begin_date" type="java.lang.String"/>								<!-- 処理日From -->
+			<form-property name="bt_end_date" type="java.lang.String"/>									<!-- 処理日To -->
+			<form-property name="bt_no" type="java.lang.String"/>											<!-- 実行番号 -->
+			<form-property name="btList_chk" type="java.lang.String"/>									<!-- 選択 -->
+			<form-property name="btStatsRefresh" type="java.lang.String"/>								<!-- X秒ごとにリフレッシュ -->
+			<form-property name="doc_file_path" type="java.lang.String"/>
+			<form-property name="bt_m_sel" type="java.lang.String"/>
+			<form-property name="bt_m_bt_id" type="java.lang.String"/>
+			<form-property name="selectedBt_flg" type="java.lang.String"/>
+		</form-bean>
+
+		<form-bean name="Tech3gDocBatchRegiForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="bt_id" 		type="java.lang.String"/>									<!-- バッチID -->
+			<form-property name="bt_name" 		type="java.lang.String"/>									<!-- Name -->
+			<form-property name="bt_param" 		type="java.lang.String"/>									<!-- Param -->
+			<form-property name="bt_m_bt_id" 	type="java.lang.String"/>									<!-- Param -->
+		</form-bean>
+
+		<!-- =========================================== -->
+		<!-- Drug and Drop						 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gDocDrugForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="file"    type="org.apache.struts.upload.FormFile"/>
+		</form-bean>
+
+
+		<!-- =========================================== -->
+		<!-- User Management						 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gUserManagerForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="p_user_sel" 		type="java.lang.String"/>
+			<form-property name="selected_user_id" 		type="java.lang.String"/>
+		</form-bean>
+
+		<!-- =========================================== -->
+		<!-- User Regi									 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gUserRegiForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="user_admin" 		type="java.lang.String"/>
+			<form-property name="selected_user_id" 		type="java.lang.String"/>
+		</form-bean>
+
+	</form-beans>
+
+<!-- ###################################################### -->
+<!-- * ●Actionの定義 										-->
+<!-- ###################################################### -->
+	<action-mappings type="tech3g.common.web.ServiceActionMapping">
+
+		<!-- =========================================== -->
+		<!-- User Management						 		 -->
+		<!-- =========================================== -->
+		<action path="/doc/user/initUserManager" scope="request"
+			name="Tech3gUserManagerForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User Management：初期表示</description>
+			<set-property property="method" value="initUserManager" />
+			<forward name="success" path="userManagerPage" />
+		</action>
+
+
+		<action path="/doc/user/searchUserManager" scope="request"
+			name="Tech3gUserManagerForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+			validate="true" input="/doc/user/redrawUserManager">
+			<description>User Management：検索</description>
+			<set-property property="method" value="searchUserManager" />
+			<forward name="success" path="userManagerPage" />
+			<forward name="failure" path="/doc/user/redrawUserManager.do" />
+		</action>
+
+		<action path="/doc/user/redrawUserManager" scope="request"
+			name="Tech3gUserManagerForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User Management画面を再描画する</description>
+			<set-property property="method" value="redrawUserManager" />
+			<forward name="success" path="userManagerPage" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- USer 登録/更新						 			 -->
+		<!-- =========================================== -->
+		<action path="/doc/user/initUserRegi" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User登録：初期表示</description>
+			<set-property property="method" value="initUserRegi"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docUserRegiPage"/>
+		</action>
+
+		<action path="/doc/user/initPassUpt" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User登録：初期表示</description>
+			<set-property property="method" value="initPassUpt"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="userPassUptPage"/>
+		</action>
+
+		<action path="/doc/user/checkUserId" scope="request"
+			name="Tech3gUserRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+			validate="true" input="/doc/user/redrawUserRegi.do">
+			<description>User Management：ID Check</description>
+			<set-property property="method" value="checkUserRegi" />
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docUserRegiPage" />
+			<forward name="failure" path="/doc/user/redrawUserRegi.do" />
+		</action>
+
+		<action path="/doc/user/updateUser" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+				validate="true" input="/doc/user/redrawUserRegi.do">
+			<description>User登録：更新</description>
+			<set-property property="method" value="updateUserRegi"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/user/userConfirm.do"/>
+			<forward name="failure" path="/doc/user/redrawUserRegi.do"/>
+		</action>
+
+		<action path="/doc/user/passUpdate" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+				validate="true" input="/doc/user/redrawPassUpt.do">
+			<description>Password Update：更新</description>
+			<set-property property="method" value="updatePassword"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/user/userPassUptConfirm.do"/>
+			<forward name="failure" path="/doc/user/redrawPassUpt.do"/>
+		</action>
+
+		<action path="/doc/user/loginPassUpt" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+				validate="true" input="/doc/user/redrawPassUpt.do">
+			<description>Login Password Update：更新</description>
+			<set-property property="method" value="loginPassUpt"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/layouts/framesetLayout.jsp"/>
+			<forward name="failure" path="/doc/user/redrawPassUpt.do"/>
+		</action>
+
+		<action path="/doc/user/insertUser" scope="request" name="Tech3gUserRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+				validate="true" input="/doc/user/redrawUserRegi.do">
+			<description>User登録：登録</description>
+			<set-property property="method" value="insertUserRegi"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/user/userConfirm.do"/>
+			<forward name="failure" path="/doc/user/redrawUserRegi.do"/>
+		</action>
+
+		<action path="/doc/user/deleteUser" scope="request" name="Tech3gUserManagerForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gUserManagerAction"
+				validate="true" input="/doc/user/redrawUserManager.do">
+			<description>User登録：削除</description>
+			<set-property property="method" value="deleteUser"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/user/initUserManager.do"/>
+			<forward name="failure" path="/doc/user/redrawUserManager.do"/>
+		</action>
+
+		<action path="/doc/user/redrawUserRegi" scope="request"
+			name="Tech3gUserRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User Regi画面を再描画する</description>
+			<set-property property="method" value="redrawUserRegi" />
+			<forward name="success" path="docUserRegiPage" />
+		</action>
+
+		<action path="/doc/user/redrawPassUpt" scope="request"
+			name="Tech3gUserRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>PassUpt画面を再描画する</description>
+			<set-property property="method" value="redrawPassUpt" />
+			<forward name="success" path="userPassUptPage" />
+		</action>
+
+		<action path="/doc/user/userConfirm" scope="request"
+			name="Tech3gUserRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User登録確認画面：登録確認</description>
+			<set-property property="method" value="userConfirm" />
+			<forward name="success" path="docUserRegiConfirmPage" />
+		</action>
+
+		<action path="/doc/user/userPassUptConfirm" scope="request"
+			name="Tech3gUserRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gUserManagerAction">
+			<description>User PassUpt Confirm画面：更新確認</description>
+			<set-property property="method" value="userPassUptConfirm" />
+			<forward name="success" path="userPassUptConfirmPage" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- 技術文書検索						 		 -->
+		<!-- =========================================== -->
+		<action path="/doc/initTechDoc" scope="request"
+			name="Tech3gDocForm" type="tech3g.fk.apps.doc.actions.Tech3gDocSearchAction">
+			<description>文書検索画面：初期表示</description>
+			<set-property property="method" value="initTechDocSearch" />
+			<forward name="success" path="docSearchPage" />
+		</action>
+
+		<action path="/doc/searchTechDoc" scope="request"
+			name="Tech3gDocForm" type="tech3g.fk.apps.doc.actions.Tech3gDocSearchAction"
+			validate="true" input="/doc/redrawRgSrch.do">
+			<description>文書検索画面：検索</description>
+			<set-property property="method" value="searchTechDoc" />
+			<forward name="success" path="docSearchPage" />
+			<forward name="failure" path="/doc/redrawRgSrch.do" />
+		</action>
+
+		<action path="/doc/redrawRgSrch" scope="request"
+			name="Tech3gDocForm" type="tech3g.fk.apps.doc.actions.Tech3gDocSearchAction">
+			<description>文書検索画面を再描画する</description>
+			<set-property property="method" value="redrawRgSrch" />
+			<forward name="success" path="docSearchPage" />
+		</action>
+
+		<action path="/doc/downloadDocFile" scope="request" name="Tech3gDocForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocSearchAction"
+				validate="true" input="/doc/redrawRgSrch.do">
+			<description>文書ファイルダウンロード</description>
+			<set-property property="method" value="downloadDocFile"/>
+			<forward name="success" path="docSearchPage"/>
+			<forward name="failure" path="/doc/redrawRgSrch.do"/>
+		</action>
+		
+		<action path="/doc/downloadExcelFormat" scope="request" name="Tech3gDocForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocSearchAction"
+				validate="true" input="/doc/redrawRgSrch.do">
+			<description>文書ファイルダウンロード</description>
+			<set-property property="method" value="downloadExcelFormat"/>
+			<forward name="success" path="docSearchPage"/>
+			<forward name="failure" path="/doc/redrawRgSrch.do"/>
+		</action>
+
+		<action path="/doc/returnToDocDetail" scope="request"
+			name="Tech3gDocForm" type="tech3g.fk.apps.doc.actions.Tech3gDocSearchAction">
+			<description>文書検索画面：遷移先から戻ったとき</description>
+			<set-property property="method" value="returnToDocDetail" />
+			<forward name="success" path="docSearchPage" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- 技術文書詳細									 -->
+		<!-- =========================================== -->
+		<action path="/doc/detail/initTechDocDetail" scope="request"
+			name="TechDocDetailForm" type="tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+			validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>技術文書詳細：初期表示</description>
+			<set-property property="method" value="initTechDocDetail" />
+			<forward name="success" path="docDetailPage" />
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do" />
+		</action>
+		<action path="/doc/detail/cnfrmHshMkp" scope="request"
+			name="TechDocDetailForm" type="tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+			validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>技術文書詳細：確認</description>
+			<set-property property="method" value="cnfrmHNPMHshMkp" />
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docDetailPage" />
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do" />
+		</action>
+
+		<action path="/doc/detail/updateDocDetail" scope="request" name="TechDocDetailForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+				validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>技術文書詳細：更新</description>
+			<set-property property="method" value="updateDocDetail"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/detail/initTechDocDetail.do"/>
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do"/>
+		</action>
+
+		<action path="/doc/detail/deleteDocDetail" scope="request" name="TechDocDetailForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+				validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>技術文書詳細：更新</description>
+			<set-property property="method" value="deleteDocDetail"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/returnToDocDetail.do"/>
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do"/>
+		</action>
+
+		<action path="/doc/detail/downloadDocFile" scope="request" name="TechDocDetailForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+				validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>文書ファイルダウンロード</description>
+			<set-property property="method" value="downloadDocFile"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docDetailPage"/>
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do"/>
+		</action>
+
+		<action path="/doc/detail/redrawDetailSrch" scope="request"
+			name="TechDocDetailForm" type="tech3g.fk.apps.doc.actions.Tech3gDocDetailAction">
+			<description>技術文書詳細：画面を再描画する</description>
+			<set-property property="method" value="redrawDetailSrch" />
+			<forward name="success" path="docDetailPage" />
+		</action>
+
+		<action path="/doc/detail/returnDocSearch" scope="request"
+			name="TechDocDetailForm" type="tech3g.fk.apps.doc.actions.Tech3gDocDetailAction"
+			validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>技術文書詳細：画面を再描画する</description>
+			<set-property property="method" value="returnDocSearch" />
+			<forward name="success" path="/doc/returnToDocDetail.do" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- 技術文書登録								 -->
+		<!-- =========================================== -->
+		<action path="/doc/regi/initTechDocRegi" scope="request"
+			name="TechDocRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gDocRegiAction"
+			validate="true" input="/doc/regi/redrawDocRegi.do">
+			<description>技術文書登録：初期表示</description>
+			<set-property property="method" value="initTechDocRegi" />
+			<forward name="success" path="docRegiPage" />
+		</action>
+
+		<action path="/doc/regi/insertDocRegi" scope="request" name="TechDocRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocRegiAction"
+				validate="true" input="/doc/regi/redrawDocRegi.do">
+			<description>技術文書登録：登録</description>
+			<set-property property="method" value="insertDocRegi"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/regi/docDetailInfo.do"/>
+			<forward name="failure" path="/doc/regi/redrawDocRegi.do"/>
+		</action>
+
+		<action path="/doc/regi/uploadMultiFile" scope="request" name="TechDocRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocRegiAction"
+				validate="true" input="/doc/regi/redrawDocRegi.do">
+			<description>Multi File Upload：Multi File 登録</description>
+			<set-property property="method" value="uploadMultiFiles"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="docRegiPage"/>
+			<forward name="failure" path="/doc/regi/redrawDocRegi.do"/>
+		</action>
+
+		<action path="/doc/regi/clearFile" scope="request" name="TechDocRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocRegiAction"
+				validate="true" input="/doc/regi/redrawDocRegi.do">
+			<description>Multi File Clear：Clear</description>
+			<set-property property="method" value="clearFile"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docRegiPage"/>
+			<forward name="failure" path="/doc/regi/redrawDocRegi.do"/>
+		</action>
+
+		<action path="/doc/regi/downloadDocFile" scope="request" name="TechDocRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocRegiAction"
+				validate="true" input="/doc/detail/redrawDetailSrch.do">
+			<description>文書ファイルダウンロード</description>
+			<set-property property="method" value="downloadDocFile"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docDetailPage"/>
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do"/>
+		</action>
+		
+		<action path="/doc/regi/redrawDocRegi" scope="request"
+			name="TechDocRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gDocRegiAction">
+			<description>技術文書登録：画面を再描画する</description>
+			<set-property property="method" value="redrawDocRegi" />
+			<forward name="success" path="docRegiPage" />
+		</action>
+
+		<action path="/doc/regi/getDocInfoIndex" scope="request"
+			name="TechDocRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gDocRegiAction">
+			<description>技術文書番号取得：文書番号取得</description>
+			<set-property property="method" value="getDocInfoIndex" />
+			<forward name="success" path="docRegiPage" />
+			<forward name="failure" path="/doc/detail/redrawDetailSrch.do"/>
+		</action>
+
+		<action path="/doc/regi/docDetailInfo" scope="request"
+			name="TechDocRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gDocRegiAction">
+			<description>技術文書登録確認：登録確認</description>
+			<set-property property="method" value="docDetailInfo" />
+			<forward name="success" path="docConrmPage" />
+		</action>
+
+		<!-- =========================================== -->
+		<!-- バッチ実行						 			 -->
+		<!-- =========================================== -->
+		<action path="/doc/batch/initBatch" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction">
+			<description>バッチ実行：初期表示</description>
+			<set-property property="method" value="initSubBatch"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docBatchPage"/>
+		</action>
+
+		<action path="/doc/batch/initMasterBatch" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction">
+			<description>バッチマスター：初期表示</description>
+			<set-property property="method" value="initMasterBatch"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docBatchPage"/>
+		</action>
+
+		<action path="/doc/batch/searchBatchList" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction"
+				validate="true" input="/doc/batch/redrawExeBatch.do">
+			<description>バッチ実行：検索</description>
+			<set-property property="method" value="srchBatchSchd"/>
+			<forward name="success" path="docBatchPage"/>
+			<forward name="failure" path="/doc/batch/redrawExeBatch.do"/>
+		</action>
+
+		<action path="/doc/batch/deleteBatchMaster" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction"
+				validate="true" input="/doc/batch/redrawExeBatch.do">
+			<description>バッチ実行：削除</description>
+			<set-property property="method" value="deleteBatchMaster"/>
+			<forward name="success" path="/doc/batch/initMasterBatch.do"/>
+			<forward name="failure" path="/doc/batch/redrawExeBatch.do"/>
+		</action>
+
+		<action path="/doc/batch/searchBatchInfo" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction">
+			<description>バッチ実行：詳細照会</description>
+			<set-property property="method" value="showDetail"/>
+			<forward name="success" path="docBatchPage"/>
+		</action>
+
+		<action path="/doc/batch/executeBatch" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction"
+				validate="true" input="/doc/batch/redrawExeBatch.do">
+			<description>バッチ実行：実行</description>
+			<set-property property="method" value="exeBatch"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/batch/initBatch.do"/>
+			<forward name="failure" path="/doc/batch/redrawExeBatch.do"/>
+		</action>
+
+		<action path="/doc/batch/downloadFile" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction"
+				validate="true" input="/doc/batch/redrawExeBatch.do">
+			<description>バッチ実行：ファイルダウンロード</description>
+			<set-property property="method" value="downloadFile"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docBatchPage"/>
+			<forward name="failure" path="/doc/batch/redrawExeBatch.do"/>
+		</action>
+
+		<action path="/doc/batch/downloadLogFile" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction"
+				validate="true" input="/doc/batch/redrawExeBatch.do">
+			<description>バッチ実行：運用ログファイルダウンロード</description>
+			<set-property property="method" value="downloadLogFile"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docBatchPage"/>
+			<forward name="failure" path="/doc/batch/redrawExeBatch.do"/>
+		</action>
+
+		<action path="/doc/batch/redrawExeBatch" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction">
+			<description>バッチ実行：画面を再描画する</description>
+			<set-property property="method" value="redrawExeBatch"/>
+			<forward name="success" path="docBatchPage"/>
+		</action>
+
+		<action path="/doc/batch/refreshBatchInfo" scope="request" name="Tech3gDocBatchForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchAction">
+			<description>バッチ実行：画面をリフレッシュする。</description>
+			<set-property property="method" value="refreshBatchInfo"/>
+			<forward name="success" path="docBatchPage"/>
+		</action>
+
+		<action path="/drag/drugAndDrop" scope="request" name="Tech3gDocDrugForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocDrugAndDrop">
+			<description>DrugAndDrop sample</description>
+			<set-property property="method" value="initDrug"/>
+			<forward name="success" path="docDrugPage"/>
+		</action>
+
+		<action path="/drag/fileUpload" scope="request" name="Tech3gDocDrugForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocDrugAndDrop">
+			<description>DrugAndDrop Upload</description>
+			<set-property property="method" value="fileUpload"/>
+			<forward name="success" path="docDrugPage"/>
+		</action>
+
+
+		<!-- =========================================== -->
+		<!-- バッチ登録						 			 -->
+		<!-- =========================================== -->
+		<action path="/doc/batchRegi/initBatchRegi" scope="request" name="Tech3gDocBatchRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction">
+			<description>バッチ登録：初期表示</description>
+			<set-property property="method" value="initBatchRegi"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="docBatchRegiPage"/>
+		</action>
+
+		<action path="/doc/batchRegi/updateBatch" scope="request" name="Tech3gDocBatchRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction">
+			<description>バッチ登録：詳細照会</description>
+			<set-property property="method" value="updateBtachRegi"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/batchRegi/batchConfirm.do"/>
+			<forward name="failure" path="/doc/batchRegi/redrawBatchRegi.do"/>
+		</action>
+
+		<action path="/doc/batchRegi/insertBatch" scope="request" name="Tech3gDocBatchRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction"
+				validate="true" input="/doc/batchRegi/redrawBatchRegi.do">
+			<description>バッチ登録：実行</description>
+			<set-property property="method" value="insertBatchRegi"/>
+			<set-property property="tokenCheck" value="true"/>
+			<forward name="success" path="/doc/batchRegi/batchConfirm.do"/>
+			<forward name="failure" path="/doc/batchRegi/redrawBatchRegi.do"/>
+		</action>
+
+		<action path="/doc/batchRegi/redrawBatchRegi" scope="request" name="Tech3gDocBatchRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction">
+			<description>バッチ登録：画面を再描画する</description>
+			<set-property property="method" value="redrawBatchRegi"/>
+			<forward name="success" path="docBatchRegiPage"/>
+		</action>
+
+		<action path="/doc/batchRegi/refreshBatchInfo" scope="request" name="Tech3gDocBatchRegiForm"
+				type = "tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction">
+			<description>バッチ登録：画面をリフレッシュする。</description>
+			<set-property property="method" value="refreshBatchInfo"/>
+			<forward name="success" path="docBatchRegiPage"/>
+		</action>
+
+		<action path="/doc/batchRegi/batchConfirm" scope="request"
+			name="Tech3gDocBatchRegiForm" type="tech3g.fk.apps.doc.actions.Tech3gDocBatchRegiAction">
+			<description>バッチ登録確認画面：登録確認</description>
+			<set-property property="method" value="batchConfirm" />
+			<forward name="success" path="docBatchConfirmPage" />
+		</action>
+
+	</action-mappings>
+</struts-config>

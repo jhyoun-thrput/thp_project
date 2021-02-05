@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:config="http://www.sds.samsung.com/schema/service"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.sds.samsung.com/schema/service http://www.sds.samsung.com/schema/service/anyframe-service-2.0.xsd"
+	>
+
+	<!-- ========================================== -->
+	<!-- BaseDAO								  	-->
+	<!-- ========================================== -->
+	<bean
+		id="baseDAO"
+		class="tech3g.common.db.BaseDao">
+		<property name="messageSource" ref="messageSource"/>
+		<property name="queryService" ref="queryService"/>
+		<property name="propertiesService" ref="propertiesService"/>
+	</bean>
+
+	<!-- ========================================== -->
+	<!-- baseService							  	-->
+	<!-- ========================================== -->
+	<bean
+		id="baseService"
+		class="tech3g.common.biz.BaseService">
+		<property name="messageSource" ref="messageSource"/>
+		<property name="propertiesService" ref="propertiesService"/>
+		<property name="cacheService" ref="cacheService"/>
+		<!-- <property name="queryService" ref="queryService"/>	 -->
+	</bean>
+
+	<!-- ========================================== -->
+	<!-- baseAdvice								  	-->
+	<!-- ========================================== -->
+	<bean
+		id="baseAdvice"
+		class="tech3g.common.advices.BaseAdvice">
+		<property name="messageSource" ref="messageSource"/>
+		<property name="propertiesService" ref="propertiesService"/>
+	</bean>
+
+	<!-- ========================================== -->
+	<!-- baseListener							  	-->
+	<!-- ========================================== -->
+	<bean
+		id="baseListener"
+		class="tech3g.common.web.listener.BaseListener">
+		<property name="messageSource" ref="messageSource"/>
+		<property name="propertiesService" ref="propertiesService"/>
+	</bean>
+
+</beans>

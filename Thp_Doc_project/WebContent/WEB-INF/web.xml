@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>TechDoc-web</display-name>
+	<!--core-configuration-START -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			    	/WEB-INF/classes/**/applicationContext*.xml
+		</param-value>
+	</context-param>
+
+	<!-- ***** ログ設定 ***** -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jExposeWebAppRoot</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>10000</param-value>
+	</context-param>
+
+	<context-param>
+		<!-- ***** JSTLから使用する定数クラス定義 ***** -->
+		<param-name>jstl_constants_config</param-name>
+		<param-value>tech3g.common.util.DateUtil
+					,tech3g.common.constants.CommonConsts
+      	</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- セッションリスナー -->
+	<listener>
+		<listener-class>tech3g.common.web.listener.SessionListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
+	<!-- SpringのContextLoaderListener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- JSTLから定数を使用するためのContextLoaderListener -->
+	<listener>
+		<listener-class>tech3g.common.web.listener.JSTLConstantsLoader</listener-class>
+	</listener>
+
+	<!-- ***** ActionServlet設定 ***** -->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<!-- <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+		<servlet-class>tech3g.common.web.LiveAnyActionServlet</servlet-class>
+		<init-param>
+			<!-- <param-name>contextConfigLocation</param-name> <param-value>classpath:/spring/*-servlet.xml</param-value> -->
+
+			<param-name>config</param-name>
+			<param-value>
+	      		/WEB-INF/configurations/struts-config.xml,
+	      		/WEB-INF/configurations/common/struts-config-common.xml,
+				/WEB-INF/configurations/doc/struts-config-doc.xml,
+				/WEB-INF/configurations/statis/struts-config-statis.xml
+	      	</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<!-- <welcome-file>/anyframe.jsp</welcome-file> -->
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/pages/common/SystemError.jsp</location>
+	</error-page>
+
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+	<!--core-configuration-END -->
+	<!--Add new configuration here -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+</web-app>

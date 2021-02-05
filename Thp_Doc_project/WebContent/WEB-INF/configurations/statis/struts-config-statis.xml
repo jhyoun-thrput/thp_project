@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+	<form-beans>
+<!-- ###################################################### -->
+<!-- * ●FormBeanの定義 									-->
+<!-- ###################################################### -->
+
+
+		<!-- =========================================== -->
+		<!-- Spb Statis Graph									 -->
+		<!-- =========================================== -->
+		<form-bean name="Tech3gStatisSpbGraphForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
+
+	</form-beans>
+
+<!-- ###################################################### -->
+<!-- * ●Actionの定義 										-->
+<!-- ###################################################### -->
+<action-mappings>
+		<!-- =========================================== -->
+		<!-- Spb Graph Action					 			 -->
+		<!-- =========================================== -->
+		<action path="/statis/initSpbGraph" scope="request" name="Tech3gStatisSpbGraphForm"
+				type = "tech3g.fk.app.statis.actions.Tech3gStatisSpbGraphAction">
+			<description>Spb Graph：初期表示</description>
+			<set-property property="method" value="initSpbGraph"/>
+			<set-property property="tokenCheck" value="false"/>
+			<forward name="success" path="statisGraphPage"/>
+		</action>
+
+		<action path="/statis/redrawSpbGraph" scope="request" name="Tech3gStatisSpbGraphForm"
+				type = "tech3g.fk.app.statis.actions.Tech3gStatisSpbGraphAction">
+			<description>Spb Graph：画面を再描画する</description>
+			<set-property property="method" value="redrawSpbGraph"/>
+			<forward name="success" path="statisGraphPage"/>
+		</action>
+
+	</action-mappings>
+</struts-config>

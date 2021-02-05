@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+    </form-beans>
+
+    <global-exceptions>
+
+
+		<exception
+			key="error.exception"
+			type="java.lang.Exception"
+            path="/pages/common/SystemError.jsp"/>
+
+    </global-exceptions>
+
+    <global-forwards>
+
+    	<forward name="home" path="/layouts/framesetLayout.jsp"/>
+    	<forward name="admin" path="/layouts/admin/framesetLayout.jsp"/>
+    	<forward name="common" path="/layouts/common/framesetLayout.jsp"/>
+    	<forward name="system" path="/layouts/system/framesetLayout.jsp"/>
+    	<forward name="calPage" path="/pages/common/InitCal.jsp"/>
+
+        <!-- 認証チェックエラー時 -->
+        <forward name="tokenErr" path="/pages/common/TokenError.jsp"/>
+        <forward name="autherr" path="/pages/common/AccessError.jsp"/>
+    	<forward name="error" path="/pages/common/SystemError.jsp"/>
+    </global-forwards>
+
+
+    <!-- ===================================== Controller Configuration -->
+
+   	 <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+
+    <!-- ===================================== Messages Configuration -->
+
+	<message-resources parameter="messages.message_common" />
+	<message-resources parameter="messages.message_hn" key="hn" />
+	<message-resources parameter="messages.message_ho" key="ho" />
+
+
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation"
+			value="/WEB-INF/configurations/action-servlet.xml" />
+	</plug-in>
+
+	<!-- =============================================== Plug Ins Configuration -->
+	<!-- =================================================== Validator plugin -->
+	<plug-in className="tech3g.common.web.validation.ExtValidatorPlugIn">
+		<set-property
+			property="pathnames" value="/org/apache/struts/validator/validator-rules.xml,
+										/WEB-INF/configurations/extended-validator-rules.xml,
+										/WEB-INF/configurations/**/validation-*.xml
+										"/>
+	</plug-in>
+
+	<!-- ======================================================= Tiles plugin -->
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config"
+	value="/WEB-INF/configurations/tiles-defs.xml,
+
+								/WEB-INF/configurations/common/tiles-config-common.xml,
+								/WEB-INF/configurations/doc/tiles-config-doc.xml,
+								/WEB-INF/configurations/statis/tiles-config-statis.xml
+								" />
+		<set-property property="moduleAware" value="true"/>
+		<set-property property="definitions-parser-validate" value="false"/>
+	</plug-in>
+
+</struts-config>
+

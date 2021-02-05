@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//TITAN//DTD QUERYSERVICE//EN"
+	"http://www.sds.samsung.co.kr/anyframe/anyframe_core_query_mapping.dtd">
+
+<!-- ======================================================
+ * 論　　理　　名： User Management
+ * オブジェクト名：     Tech3g_user_info
+ * 適　　　　　用：
+===========================================================-->
+<queryservice>
+	<queries>
+
+        <query id="user.searchUserList" isDynamic="true">
+            <statement><![CDATA[
+
+            select
+            		FORMAT(a.rownum, 0) rownum
+           		,	a.user_id
+				,	a.user_name
+				,	a.user_pass
+				,	a.user_mail
+				,	a.user_admin
+				,	a.user_tel_no
+				,	a.user_ip
+				,	a.user_del_flg
+				,	date_format(a.regi_date, '%Y-%m-%d %T') regi_date
+				,	a.regi_user
+				,	date_format(a.upt_date, '%Y-%m-%d %T') upt_date
+				,	a.upt_user
+
+            from
+				(select
+						@RNUM := @RNUM + 1 rownum
+					,	user_id
+					,	user_name
+					,	user_pass
+					,	user_mail
+					,	user_admin
+					,	user_tel_no
+					,	user_ip
+					,	user_del_flg
+					,	regi_date
+					,	regi_user
+					,	upt_date
+					,	upt_user
+				from
+						tech3g_db.tech3g_user_info
+					,	( select @RNUM := 0 ) row
+				where
+						1 =1
+				#if ($user_id != '')
+					AND user_id = :user_id
+                #end
+                order by
+                		upt_date desc, user_id
+                ) a
+
+            limit :startNo , :endNo
+
+            ]]></statement>
+            <param name="user_id" 		type="VARCHAR" />
+   			<param name="startNo" 		type="VARCHAR" />
+			<param name="endNo" 		type="VARCHAR" />
+        </query>
+
+        <query id="user.searchUserCnt" isDynamic="true">
+            <statement><![CDATA[
+				select
+					count(*) CNT
+				from
+						tech3g_db.tech3g_user_info
+				where
+						1 =1
+				#if ($user_id != '')
+					AND user_id = :user_id
+                #end
+
+            ]]></statement>
+            <param name="user_id" type="VARCHAR" />
+        </query>
+
+        <!-- ***** バッチ作業スケジュール情報を登録する。 ***** -->
+        <query id="doc.insertUserInfo" isDynamic="true">
+            <statement><![CDATA[
+            INSERT INTO
+            			tech3g_db.tech3g_user_info
+            		(
+						user_id
+					,	user_name
+					,	user_pass
+					,	user_mail
+					,	user_admin
+					,	user_tel_no
+					,	user_ip
+					,	regi_date
+					,	regi_user
+					,	upt_date
+                	)
+
+            VALUES (
+
+                	:user_id
+                ,	:user_name
+				,	:user_pass
+				,	:user_mail
+				,	:user_admin
+                ,	:user_tel_no
+                ,	:user_ip
+                ,	SYSDATE()
+                ,	:regi_user_id
+                ,	SYSDATE()
+                   )
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="user_name" 		type="VARCHAR" />
+			<param name="user_pass" 		type="VARCHAR" />
+			<param name="user_mail" 		type="VARCHAR" />
+			<param name="user_admin" 		type="VARCHAR" />
+			<param name="user_tel_no" 		type="VARCHAR" />
+			<param name="user_ip" 			type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+			<param name="regi_user_id" 			type="VARCHAR" />
+        </query>
+
+        <query id="doc.updateUserInfo" isDynamic="true">
+            <statement><![CDATA[
+
+            UPDATE
+            	tech3g_db.tech3g_user_info
+            SET
+            	user_name 	= :user_name
+		#if($user_pass != '')
+            ,	user_pass	= :user_pass
+		#end
+            ,	user_mail 	= :user_mail
+        #if($user_admin != '')
+            ,	user_admin	= :user_admin
+        #end
+            ,	user_tel_no = :user_tel_no
+            ,	user_ip 	= :user_ip
+            ,	upt_user	= :regi_user_id
+            ,	upt_date	= SYSDATE()
+
+            WHERE
+				user_id = :user_id
+
+            ]]></statement>
+			<param name="bt_id" 			type="VARCHAR" />
+			<param name="user_name" 		type="VARCHAR" />
+			<param name="user_pass" 		type="VARCHAR" />
+			<param name="user_mail" 		type="VARCHAR" />
+			<param name="user_admin" 		type="VARCHAR" />
+			<param name="user_tel_no" 		type="VARCHAR" />
+			<param name="user_ip" 			type="VARCHAR" />
+			<param name="user_id" 			type="VARCHAR" />
+			<param name="regi_user_id" 			type="VARCHAR" />
+        </query>
+
+        <query id="doc.deleteUserInfo" isDynamic="true">
+            <statement><![CDATA[
+
+            DELETE FROM
+            	tech3g_db.tech3g_user_info
+
+            WHERE
+				user_id = :user_id
+
+            ]]></statement>
+			<param name="user_id" 			type="VARCHAR" />
+        </query>
+
+	</queries>
+</queryservice>
+
