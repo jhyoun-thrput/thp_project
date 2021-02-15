@@ -16,7 +16,6 @@ import org.apache.struts.config.ModuleConfig;
 import org.apache.struts.validator.ValidatorPlugIn;
 import org.springframework.core.io.Resource;
 import org.springframework.web.context.support.ServletContextResourcePatternResolver;
-import org.xml.sax.SAXException;
 
 /**
  * <pre>
@@ -120,7 +119,7 @@ public class ExtValidatorPlugIn extends ValidatorPlugIn {
             }
 
             this.resources = new ValidatorResources(urlArray);
-        } catch (SAXException sex) {
+        } catch (Exception sex) {
             log.error("Skipping all validation", sex);
             throw new ServletException(sex);
         }
